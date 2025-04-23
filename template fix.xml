@@ -250,15 +250,19 @@
           </b:if>
         </b:includable>
         <b:includable id='Stat'>
-          <b:if cond='data:post.labels any (l =&gt; l.name == &quot;Completed&quot;)'>
-            <div class='leading-none bg-gold-700/80 border border-white/5 h-8 px-3 flex justify-center items-center sm:gap-2 gap-[2vw] transition-all cursor-pointer rounded-lg'>
-              <span class='capitalize'>Completed</span></div>
-            <b:elseif cond='data:post.labels any (l =&gt; l.name == &quot;Dropped&quot;)'/>
-            <div class='leading-none bg-red-700/80 border border-white/5 h-8 px-3 flex justify-center items-center sm:gap-2 gap-[2vw] transition-all cursor-pointer rounded-lg'>
-              <span class='capitalize'>Dropped</span></div>
-            <b:elseif cond='data:post.labels any (l =&gt; l.name == &quot;Ongoing&quot;)'/>
-            <div class='leading-none bg-green-500/80 border border-white/5 h-8 px-3 flex justify-center items-center sm:gap-2 gap-[2vw] transition-all cursor-pointer rounded-lg'>
-              <span class='capitalize'>Ongoing</span></div>
+  <b:if cond='data:post.labels any (l =&gt; l.name == &quot;Completed&quot;)'>
+    <div class='leading-none bg-gold-700/80 border border-white/5 h-8 px-3 flex justify-center items-center sm:gap-2 gap-[2vw] transition-all cursor-pointer rounded-lg'>
+      <span class='capitalize'>Completed</span></div>
+    <b:elseif cond='data:post.labels any (l =&gt; l.name == &quot;Dropped&quot;)'/>
+    <div class='leading-none bg-red-700/80 border border-white/5 h-8 px-3 flex justify-center items-center sm:gap-2 gap-[2vw] transition-all cursor-pointer rounded-lg'>
+      <span class='capitalize'>Dropped</span></div>
+    <b:elseif cond='data:post.labels any (l =&gt; l.name == &quot;Ongoing&quot;)'/>
+    <div class='leading-none bg-green-500/80 border border-white/5 h-8 px-3 flex justify-center items-center sm:gap-2 gap-[2vw] transition-all cursor-pointer rounded-lg'>
+      <span class='capitalize'>Ongoing</span></div>
+    <b:elseif cond='data:post.labels any (l =&gt; l.name == &quot;Bab&quot;)'>
+      <div class='leading-none h-8 px-3 flex justify-center items-center sm:gap-2 gap-[2vw] bg-blue-700/80 transition-all cursor-pointer rounded-lg'>
+        <span class='capitalize'>Bab</span>
+      </div>
             <b:elseif cond='data:post.labels any (l =&gt; l.name == &quot;Coming Soon&quot;)'/>
             <div class='leading-none bg-orange-700/80 border border-white/5 h-8 px-3 flex justify-center items-center sm:gap-2 gap-[2vw] transition-all cursor-pointer rounded-lg'>
               <span class='capitalize'>Coming Soon</span></div>
