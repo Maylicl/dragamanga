@@ -222,9 +222,9 @@
           </b:loop>
         </b:includable>
         <b:includable id='Ad_1'>
-          <b:if cond='data:skin.vars.showads == &quot;1px&quot;'>
+          <b:if cond='data:skin.vars.showads == &quot;0px&quot;'>
             <b:if cond='!data:view.isLayoutMode'>
-              <div class='ads-grid w-full grid sm:grid-cols-2 gap-4 sm:mx-auto overflow-hidden sm:rounded-none rounded-xl' style='height: 250px;'>
+              <div class='ads-grid w-full grid sm:grid-cols-2 gap-4 sm:mx-auto overflow-hidden sm:rounded-none rounded-xl' style='height: 0px;'>
                 <div class='flex justify-center items-center sm:last:grid last:hidden overflow-hidden relative bg-white/10 sm:rounded-xl'>
                   <img class='w-7' src='https://api.iconify.design/simple-icons:googleadsense.svg?color=white'/>
                   <ins class='adsbygoogle' data-ad-format='auto' expr:data-ad-client='data:adClientId ?: data:blog.adsenseClientId' expr:data-ad-host='data:blog.adsenseHostId' expr:data-analytics-uacct='data:blog.analyticsAccountNumber' expr:style='data:style ?: &quot;display: block;&quot;'/><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
@@ -238,9 +238,9 @@
           </b:if>
         </b:includable>
         <b:includable id='Ad_2'>
-          <b:if cond='data:skin.vars.showads == &quot;1px&quot;'>
+          <b:if cond='data:skin.vars.showads == &quot;0px&quot;'>
             <b:if cond='!data:view.isLayoutMode'>
-              <div class='ads-grid w-full grid gap-4 sm:mx-auto overflow-hidden sm:rounded-none rounded-xl' style='height: 250px;'>
+              <div class='ads-grid w-full grid gap-4 sm:mx-auto overflow-hidden sm:rounded-none rounded-xl' style='height: 0px;'>
                 <div class='flex justify-center items-center overflow-hidden relative bg-white/10 sm:rounded-xl'>
                   <img class='w-7' src='https://api.iconify.design/simple-icons:googleadsense.svg?color=white'/>
                   <ins class='adsbygoogle' data-ad-format='auto' expr:data-ad-client='data:adClientId ?: data:blog.adsenseClientId' expr:data-ad-host='data:blog.adsenseHostId' expr:data-analytics-uacct='data:blog.analyticsAccountNumber' expr:style='data:style ?: &quot;display: block;&quot;'/><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
@@ -421,18 +421,18 @@ console.log('%cDragonion V1.0.0%cBy Itachisi.blogspot.com', 'color: #fff; backgr
                                        <img class='w-6' src='https://api.iconify.design/ph:house-simple-fill.svg?color=white'/>
                                        <div class='sm:block hidden font-medium'>Home</div>
                                      </a>
-                                     <a alt='Latest' class='flex sm:w-fit sm:aspect-square w-1/2 justify-center items-center h-11 gap-3 bg-white/10 hover:bg-white/20 transition-all cursor-pointer rounded-full' expr:href='data:blog.homepageUrl + &quot;p/latest.html&quot;' title='Latest'>
-                                       <img class='w-6' src='https://api.iconify.design/mdi:calendar-badge-outline.svg?color=white'/>
-                                       <!-- <div class="sm:block hidden font-medium">Latest</div> -->
-                                     </a>
-                                     <a alt='Series' class='flex  sm:w-fit w-1/2 justify-center items-center h-11 sm:px-5 gap-3 bg-white/10 hover:bg-white/20 transition-all cursor-pointer rounded-full' expr:href='data:blog.homepageUrl + &quot;search/label/Series&quot;' title='Series'>
-                                       <img class='w-6' src='https://api.iconify.design/material-symbols:space-dashboard-rounded.svg?color=white'/>
-                                       <div class='sm:block hidden font-medium'>Series</div>
-                                     </a>
-                                     <a alt='Library' class='sm:px-5 flex  sm:w-fit w-1/2 justify-center items-center h-11 gap-3 bg-white/10 hover:bg-white/20 transition-all cursor-pointer rounded-full' expr:href='data:blog.homepageUrl + &quot;p/library.html&quot;' title='Library'>
-                                       <img class='w-6' src='https://api.iconify.design/fluent:library-28-filled.svg?color=white'/>
-                                       <div class='sm:block hidden font-medium'>Library</div>
-                                     </a>
+                                     <a alt='Latest' class='flex sm:w-fit sm:aspect-square w-1/2 justify-center items-center h-11 gap-3 bg-white/10 hover:bg-white/20 transition-all cursor-pointer rounded-full' href='https://yaoimangalix.blogspot.com/p/latest-series.html?m=1' title='Latest'>
+                                      <img class='w-6' src='https://api.iconify.design/mdi:calendar-badge-outline.svg?color=white'/>
+                                        <!-- <div class="sm:block hidden font-medium">Latest</div> -->
+                                       </a>
+                                     <a alt='Series' class='flex  sm:w-fit w-1/2 justify-center items-center h-11 sm:px-5 gap-3 bg-white/10 hover:bg-white/20 transition-all cursor-pointer rounded-full' href='https://yaoimangalix.blogspot.com/search/label/Series?m=1' title='Series'>
+  <img class='w-6' src='https://api.iconify.design/material-symbols:space-dashboard-rounded.svg?color=white'/>
+  <div class='sm:block hidden font-medium'>Series</div>
+</a>
+                                     <a alt='Library' class='sm:px-5 flex  sm:w-fit w-1/2 justify-center items-center h-11 gap-3 bg-white/10 hover:bg-white/20 transition-all cursor-pointer rounded-full' href='https://yaoimangalix.blogspot.com/p/library-series.html?m=1' title='Library'>
+                           <img class='w-6' src='https://api.iconify.design/fluent:library-28-filled.svg?color=white'/>
+                         <div class='sm:block hidden font-medium'>Library</div>
+                           </a>
                                    </div>
                           </div>
                             </b:includable>
