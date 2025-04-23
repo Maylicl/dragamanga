@@ -271,44 +271,37 @@
           </b:if>
         </b:includable>
         <b:includable id='Shareit' var='post'>
-          <div class='sm:flex hidden justify-between gap-6 bg-white/10 p-4 rounded-2xl overflow-hidden z-[1]'>
-            <div class='flex gap-4 justify-center items-center '>
-              <div class='h-full w-1 rounded-lg bg-white/20'/>
-              <div class='grid'>
-                <div class='font-medium truncate'>Share <data:blog.title/></div>
-                <div class='text-sm truncate'>to your friends</div>
-              </div>
-            </div>
-            <div class='sharethis-inline-share-buttons'/>
-          </div>
-          <div class='flex justify-between gap-6 bg-white/10 p-4 rounded-2xl'>
-            <div class='flex gap-4 justify-center items-center '>
-              <div class='h-full w-1 rounded-lg bg-white/20'/>
-              <div class='grid'>
-                <div class='font-medium truncate'>Join Our Socials</div>
-                <div class='text-sm truncate'>to explore more</div>
-              </div>
-            </div>
-            <a alt='Discord' class='h-10 gap-2 px-6 bg-[#5865F2] hover:bg-opacity-80 flex justify-center items-center rounded-full' href='' id='discord' target='_blank' title='Discord'>
-              <img class='w-6' src='https://api.iconify.design/cbi:discord.svg?color=%23ffffff'/>
-              <div>Discord</div>
-            </a>
-          </div>
-          <div class='flex justify-between gap-6 bg-white/10 p-4 rounded-2xl relative overflow-hidden'>
-            <img class='h-full w-auto absolute top-0 left-0' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhXpdI5QlMbcluMUW4k8gU6JwR9GN7UbwyN4ULU_tOHTej63h2Mone_kElBRd_NKSltLo_YepjOOlmWKmg-RpDhDi4B4uO9OdaKG3QnsGPqlmHB4IMQUSAAyt2r9SSuePF49x2gCZcwOmPoK7WkOjGRirZs9Qqb9HlMSF0OjFRciqW6MsTgPfC9oNt3CL2M/s1600/mascot.png'/>
-            <div class='flex gap-4 ml-[4.5rem] justify-center items-center relative'>
-              <div class='hidden h-full w-1 rounded-lg bg-white/20'/>
-              <div class='grid'>
-                <div class='font-medium truncate'>Donate Us</div>
-                <div class='text-sm truncate'>to support us</div>
-              </div>
-            </div>
-            <div class='flex gap-2 relative'>
-              <a alt='Ko-fi' class='h-10 gap-2 px-6 bg-blue-400 hover:bg-opacity-80 flex justify-center items-center rounded-full' href='' id='kofi' target='_blank' title='Ko-fi'>
-                <img class='w-6' src='https://api.iconify.design/cib:ko-fi.svg?color=%23ffffff'/><div class='whitespace-nowrap'>Ko-Fi</div>
-              </a>
-            </div>
-          </div>
+  <b:if cond='data:view.isHomepage'>
+    <div class='sm:flex hidden justify-between gap-6 bg-white/10 p-4 rounded-2xl overflow-hidden z-[1]'>
+      ...
+    </div>
+    <div class='flex justify-between gap-6 bg-white/10 p-4 rounded-2xl'>
+      <div class='flex gap-4 justify-center items-center '>
+        <div class='h-full w-1 rounded-lg bg-white/20'/>
+        <div class='grid'>
+          <div class='font-medium truncate'>Join Our Socials</div>
+          <div class='text-sm truncate'>to explore more</div>
+        </div>
+      </div>
+      <a alt='Discord' ... id='discord' ...>
+        <img .../>
+        <div>Discord</div>
+      </a>
+    </div>
+    <div class='flex justify-between gap-6 bg-white/10 p-4 rounded-2xl relative overflow-hidden'>
+      <img .../>
+      <div class='flex gap-4 ml-[4.5rem] justify-center items-center relative'>
+        <div class='grid'>
+          <div class='font-medium truncate'>Donate Us</div>
+          <div class='text-sm truncate'>to support us</div>
+        </div>
+      </div>
+      <a alt='Ko-fi' ... id='kofi' ...>
+        <img .../>
+     <div>Ko-Fi</div>
+        </a>
+             </div>
+            </b:if>
         </b:includable>
             <b:includable id='seriesGen'>
               <div class='flex flex-wrap gap-x-2.5 gap-y-3' id='series_tags_page'/>
@@ -482,10 +475,12 @@ console.log('%cDragonion V1.0.0%cBy Itachisi.blogspot.com', 'color: #fff; backgr
                            <div id='searched'>
                            </div>
                          </div>
-                         <button class='grid h-fit text-center sm:p-4 p-[4vw] sm:bg-zinc-900/50 bg-zinc-900 backdrop-blur-xl border-t border-white/20 transition-all' id='view_all_search' type='button'>
-                           <b:class cond='!data:blog.isMobileRequest' name='fixed bottom-0 left-0 right-0'/>
-                           View all results
-                         </button>
+                         <b:if cond='data:posts.empty'>
+                   <button class='grid h-fit text-center sm:p-4 p-[4vw] sm:bg-zinc-900/50 bg-zinc-900 backdrop-blur-xl border-t border-white/20 transition-all' id='view_all_search' type='button'>
+                <b:class cond='!data:blog.isMobileRequest' name='fixed bottom-0 left-0 right-0'/>
+                    View all results
+                   </button>
+                        </b:if>
                        </div>
           </div>
           <b:if cond='data:posts.empty or data:view.isError'>
