@@ -365,7 +365,7 @@ let noThumbnail, filterGenre, filterStat, filterStatus, filterType, chapter_num,
 		discord = 'https://example.com/share1';
 		kofi = 'https://example.com/share2';
 
-		disqusShortname = 'dragonion';
+		disqusShortname = 'omega-8';
 
 		add_main_gen = 'yes';
 
