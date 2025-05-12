@@ -48,7 +48,7 @@
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "<data:blog.pageName/>",
-        "description": "<b:eval expr='data:blog.postSnippet ? data:blog.postSnippet : &quot;Baca manga, manhua, dan manhwa terbaru di ComicKu.&quot;'/>",
+        "description": "<b:eval expr='data:blog.postSnippet ? data:blog.postSnippet : "Baca manga, manhua, dan manhwa terbaru di ComicKu."'/>",
         "image": "<b:if cond='data:blog.postImageThumbnail'><data:blog.postImageThumbnail/><b:else/>https://via.placeholder.com/110x165</b:if>",
         "author": {
           "@type": "Person",
@@ -177,7 +177,7 @@
                           </b:loop>
                         </div>
                       </div>
-                      <div class='bookmark-btn' onclick='toggleBookmark(this, "<data:post.title/>", "<data:post.url/>")'>Bookmark</div>
+                      <div class='bookmark-btn' expr:data-title='data:post.title' expr:data-url='data:post.url'>Bookmark</div>
                     </div>
                   </div>
                   <div class='post-content'>
@@ -187,7 +187,7 @@
                     <h2>Daftar Chapter</h2>
                     <ul id='chapterList'/>
                     <div class='show-more' id='showMore'>
-                      <a href='javascript:void(0)' onclick='showMoreChapters(this)'>Show <span id='remainingCount'>...</span> more</a>
+                      <a href='javascript:void(0)'>Show <span id='remainingCount'>...</span> more</a>
                     </div>
                   </div>
                   <div class='related-series'>
@@ -195,10 +195,10 @@
                     <div id='relatedSeries'/>
                   </div>
                   <div class='share-buttons'>
-                    <a href='javascript:void(0)' onclick='shareFacebook()' class='fb-share'>Share on Facebook</a>
-                    <a href='javascript:void(0)' onclick='shareTwitter()' class='tw-share'>Share on Twitter</a>
-                    <a href='javascript:void(0)' onclick='shareWhatsApp()' class='wa-share'>Share on WhatsApp</a>
-                    <a href='javascript:void(0)' onclick='shareTelegram()' class='tg-share'>Share on Telegram</a>
+                    <a href='javascript:void(0)' class='fb-share'>Share on Facebook</a>
+                    <a href='javascript:void(0)' class='tw-share'>Share on Twitter</a>
+                    <a href='javascript:void(0)' class='wa-share'>Share on WhatsApp</a>
+                    <a href='javascript:void(0)' class='tg-share'>Share on Telegram</a>
                   </div>
                 <b:else/>
                   <div class='post-header'>
@@ -209,16 +209,16 @@
                   </div>
                   <a expr:href='data:blog.url' class='coffee-btn' data-spa='true'>Back to Series</a>
                   <div class='share-buttons'>
-                    <a href='javascript:void(0)' onclick='shareFacebook()' class='fb-share'>Share on Facebook</a>
-                    <a href='javascript:void(0)' onclick='shareTwitter()' class='tw-share'>Share on Twitter</a>
-                    <a href='javascript:void(0)' onclick='shareWhatsApp()' class='wa-share'>Share on WhatsApp</a>
-                    <a href='javascript:void(0)' onclick='shareTelegram()' class='tg-share'>Share on Telegram</a>
+                    <a href='javascript:void(0)' class='fb-share'>Share on Facebook</a>
+                    <a href='javascript:void(0)' class='tw-share'>Share on Twitter</a>
+                    <a href='javascript:void(0)' class='wa-share'>Share on WhatsApp</a>
+                    <a href='javascript:void(0)' class='tg-share'>Share on Telegram</a>
                   </div>
                 </b:if>
                 <div class='reactions'>
-                  <button class='reaction-btn' onclick='react(this, "like")'>👍 <span class='reaction-count'>0</span></button>
-                  <button class='reaction-btn' onclick='react(this, "love")'>❤️ <span class='reaction-count'>0</span></button>
-                  <button class='reaction-btn' onclick='react(this, "wow")'>😮 <span class='reaction-count'>0</span></button>
+                  <button class='reaction-btn' data-reaction='like'>👍 <span class='reaction-count'>0</span></button>
+                  <button class='reaction-btn' data-reaction='love'>❤️ <span class='reaction-count'>0</span></button>
+                  <button class='reaction-btn' data-reaction='wow'>😮 <span class='reaction-count'>0</span></button>
                 </div>
                 <a href='https://www.buymeacoffee.com/YOUR_USERNAME' target='_blank' class='coffee-btn'>Buy Me a Coffee!</a>
               </div>
@@ -233,6 +233,437 @@
       <p>© 2025 ComicKu. All Rights Reserved. | <a href='/p/contact.html' data-spa='true'>Contact Us</a></p>
     </div>
   </footer>
-  <script>function getCachedData(key,expiry){let cached=localStorage.getItem(key);if(cached){let parsed=JSON.parse(cached);if(parsed.expiry>Date.now())return parsed.data;localStorage.removeItem(key)}return null}function setCachedData(key,data,expiryMinutes){let expiry=Date.now()+expiryMinutes*60*1000;localStorage.setItem(key,JSON.stringify({data,expiry}))}function debounce(func,wait){let timeout;return function(...args){clearTimeout(timeout);timeout=setTimeout(() => func.apply(this,args),wait)}}function loadAnnouncement(){let cached=getCachedData('announcement',30);if(cached){let announcementDiv=document.getElementById('announcement');announcementDiv.innerHTML=cached;announcementDiv.style.display='block';return}fetch('/feeds/posts/default/-/announcement?alt=json&max-results=1').then(response => response.json()).then(data => {let entries=data.feed.entry||[];if(entries.length>0){let announcementDiv=document.getElementById('announcement');announcementDiv.innerHTML=entries[0].content.$t;announcementDiv.style.display='block';setCachedData('announcement',entries[0].content.$t,30)}}).catch(error => console.error('Error fetching announcement:',error))}function loadChapterList(seriesTitle,chapterList,showMoreBtn,remainingCount){let cacheKey=`chapterList_${seriesTitle}`;let cached=getCachedData(cacheKey,60);if(cached){renderChapterList(cached,seriesTitle,chapterList,showMoreBtn,remainingCount);return}fetch('/feeds/posts/default/-/' + encodeURIComponent(seriesTitle) + '?alt=json&max-results=100').then(response => response.json()).then(data => {let chapters=[];let entries=data.feed.entry||[];entries.forEach(entry => {let labels=entry.category?entry.category.map(cat => cat.term):[];if(labels.includes('project')&&labels.includes('chapter')&&labels.includes(seriesTitle)){chapters.push({title:entry.title.$t,url:entry.link.find(link => link.rel === 'alternate').href,date:new Date(entry.published.$t)})}});chapters.sort((a,b) => b.date-a.date);setCachedData(cacheKey,chapters,60);renderChapterList(chapters,seriesTitle,chapterList,showMoreBtn,remainingCount)}).catch(error => {console.error('Error fetching chapters:',error);chapterList.innerHTML='<li>No chapters found.</li>'})}function renderChapterList(chapters,seriesTitle,chapterList,showMoreBtn,remainingCount){chapterList.innerHTML='';let initialCount=Math.min(10,chapters.length);for(let j=0;j<initialCount;j++){let li=document.createElement('li');li.innerHTML=`<a href="${chapters[j].url}" data-spa="true" onclick="updateLastRead('${seriesTitle}','${chapters[j].title}','${chapters[j].url}')">${chapters[j].title}</a>`;chapterList.appendChild(li)}if(chapters.length>10){remainingCount.textContent=chapters.length-10;showMoreBtn.style.display='block'}else{showMoreBtn.style.display='none'}window.allChapters=chapters;let totalChaptersSpan=document.querySelector('#total_chapters');if(totalChaptersSpan)totalChaptersSpan.textContent=chapters.length}const debouncedLoadRelatedSeries=debounce((seriesTitle,relatedSeriesDiv) => {let cacheKey=`relatedSeries_${seriesTitle}`;let cached=getCachedData(cacheKey,60);if(cached){renderRelatedSeries(cached,relatedSeriesDiv);return}fetch('/feeds/posts/default?alt=json&max-results=50').then(response => response.json()).then(data => {let entries=data.feed.entry||[];let related=[];entries.forEach(entry => {let labels=entry.category?entry.category.map(cat => cat.term):[];if((labels.includes('manga')||labels.includes('manhua')||labels.includes('manhwa'))&&labels.includes(seriesTitle)){let entryTitle=entry.title.$t.trim();if(entryTitle===seriesTitle&&entry.link){let url=entry.link.find(link => link.rel === 'alternate').href;let thumbnail=entry.media$thumbnail?entry.media$thumbnail.url:'https://via.placeholder.com/50x75';let type=labels.includes('manga')?'manga':labels.includes('manhua')?'manhua':'manhwa';related.push({title:entryTitle+' ('+type+')',url,thumbnail})}}});setCachedData(cacheKey,related,60);renderRelatedSeries(related,relatedSeriesDiv)}).catch(error => console.error('Error fetching related series:',error))},300);function renderRelatedSeries(related,relatedSeriesDiv){relatedSeriesDiv.innerHTML='';related.forEach(item => {if(item.url!==window.location.href){let div=document.createElement('div');div.className='related-item';div.innerHTML=`<img src="${item.thumbnail}" loading="lazy" alt="${item.title} Cover"><a href="${item.url}" data-spa="true">${item.title}</a>`;relatedSeriesDiv.appendChild(div)}})}function showMoreChapters(btn){let chapterList=btn.closest('.chapter-list').querySelector('#chapterList');let chapters=window.allChapters||[];for(let i=10;i<chapters.length;i++){let li=document.createElement('li');li.innerHTML=`<a href="${chapters[i].url}" data-spa="true" onclick="updateLastRead('${chapters[i].seriesTitle}','${chapters[i].title}','${chapters[i].url}')">${chapters[i].title}</a>`;chapterList.appendChild(li)}btn.parentElement.style.display='none'}function toggleBookmark(btn,title,url){let bookmarks=JSON.parse(localStorage.getItem('bookmarks'))||[];let index=bookmarks.findIndex(b => b.title===title);if(index===-1){bookmarks.push({title,url});btn.textContent='Unbookmark'}else{bookmarks.splice(index,1);btn.textContent='Bookmark'}localStorage.setItem('bookmarks',JSON.stringify(bookmarks));loadBookmarks()}function loadBookmarks(){let bookmarks=JSON.parse(localStorage.getItem('bookmarks'))||[];let bookmarkList=document.getElementById('bookmarkList');bookmarkList.innerHTML='';bookmarks.forEach(bookmark => {let li=document.createElement('li');li.innerHTML=`<a href="${bookmark.url}" data-spa="true">${bookmark.title}</a>`;bookmarkList.appendChild(li)});let bookmarkBtn=document.querySelector('.bookmark-btn');if(bookmarkBtn){let title=bookmarkBtn.parentElement.querySelector('.post-title').textContent.trim();if(bookmarks.some(b => b.title===title))bookmarkBtn.textContent='Unbookmark';else bookmarkBtn.textContent='Bookmark'}}function updateLastRead(seriesTitle,chapterTitle,chapterUrl){let lastRead={seriesTitle,chapterTitle,chapterUrl};localStorage.setItem('lastRead',JSON.stringify(lastRead));loadLastRead()}function loadLastRead(){let lastRead=JSON.parse(localStorage.getItem('lastRead'));let lastReadList=document.getElementById('lastReadList');lastReadList.innerHTML='';if(lastRead){let li=document.createElement('li');li.innerHTML=`<a href="${lastRead.chapterUrl}" data-spa="true">${lastRead.seriesTitle} - ${lastRead.chapterTitle}</a>`;lastReadList.appendChild(li)}}function shareFacebook(){let url=encodeURIComponent(window.location.href);window.open('https://www.facebook.com/sharer/sharer.php?u='+url,'_blank')}function shareTwitter(){let url=encodeURIComponent(window.location.href);let text=encodeURIComponent(document.title);window.open('https://twitter.com/intent/tweet?url='+url+'&text='+text,'_blank')}function shareWhatsApp(){let url=encodeURIComponent(window.location.href);let text=encodeURIComponent(document.title+' '+url);window.open('https://api.whatsapp.com/send?text='+text,'_blank')}function shareTelegram(){let url=encodeURIComponent(window.location.href);let text=encodeURIComponent(document.title);window.open('https://telegram.me/share/url?url='+url+'&text='+text,'_blank')}function react(button,type){let countSpan=button.querySelector('.reaction-count');let count=parseInt(countSpan.textContent)||0;countSpan.textContent=count+1;let postId=window.location.pathname;let key=`reaction_${postId}_${type}`;localStorage.setItem(key,count+1)}function loadReactions(){let postId=window.location.pathname;let buttons=document.querySelectorAll('.reaction-btn');buttons.forEach(button => {let type=button.getAttribute('onclick').match(/"([^"]+)"/)[1];let key=`reaction_${postId}_${type}`;let count=localStorage.getItem(key)||0;button.querySelector('.reaction-count').textContent=count})}function parseSeriesContent(){let postContent=document.querySelector('.post-content');if(postContent){let content=postContent.innerHTML;let artistMatch=content.match(/<b>Artist:<\/b>\s*([^<]*)/i);let altTitlesMatch=content.match(/<b>Alternative Titles:<\/b>\s*([^<]*)/i);let releaseDateMatch=content.match(/<b>Release Date:<\/b>\s*([^<]*)/i);let sourceMatch=content.match(/<b>Source:<\/b>\s*([^<]*)/i);document.querySelector('#artist').textContent=artistMatch?artistMatch[1].trim():'Unknown';document.querySelector('#alt_titles').textContent=altTitlesMatch?altTitlesMatch[1].trim():'N/A';document.querySelector('#release_date').textContent=releaseDateMatch?releaseDateMatch[1].trim():'N/A';document.querySelector('#source').textContent=sourceMatch?sourceMatch[1].trim():'N/A'}}function loadContent(url){let loadingIndicator=document.getElementById('loading-indicator');loadingIndicator.style.display='block';fetch(url+'?alt=json').then(response => response.json()).then(data => {let mainContent=document.getElementById('main-content');mainContent.innerHTML='';let entries=data.feed.entry||[];if(!entries.length){mainContent.innerHTML=`<div class="error-404"><h1>404 - Page Not Found</h1><p>Oops! The page you're looking for doesn't exist.</p><a href="${window.location.origin}" data-spa="true">Back to Home</a></div>`;document.title='404 - Page Not Found - ComicKu';initSPALinks();loadingIndicator.style.display='none';return}let entry=entries[0];let labels=entry.category?entry.category.map(cat => cat.term):[];let isSeries=labels.some(label => ['manga','manhua','manhwa'].includes(label));if(isSeries){let thumbnail=entry.media$thumbnail?entry.media$thumbnail.url:'https://via.placeholder.com/110x165';let title=entry.title.$t;let content=entry.content.$t;let author=entry.author[0].name.$t;let genres=labels.filter(label => !['manga','manhua','manhwa','status','hot',title].includes(label));let type=labels.find(label => ['manga','manhua','manhwa'].includes(label));let status=labels.find(label => ['Ongoing','Completed','Hiatus','Drop'].includes(label))||'Unknown';mainContent.innerHTML=`<div class="post-detail" id="post-detail"><div class="post-header"><img src="${thumbnail}" loading="lazy" alt="${title} Cover"/><div class="post-info"><h1 class="post-title">${title}</h1><div class="post-meta"><div><b>Author:</b> ${author}</div><div><b>Artist:</b> <span id="artist">Unknown</span></div><div><b>Alternative Titles:</b> <span id="alt_titles">N/A</span></div><div><b>Release Date:</b> <span id="release_date">N/A</span></div><div><b>Total Chapters:</b> <span id="total_chapters">N/A</span></div><div><b>Source:</b> <span id="source">N/A</span></div><div><b>Genre:</b> ${genres.map(genre => `<a href="/search/label/${genre}" data-spa="true">${genre}</a>`).join(' | ')}</div><div><b>Type:</b> <span class="type">${type}</span></div><div><b>Status:</b> <span class="status">${status}</span></div></div><div class="bookmark-btn" onclick="toggleBookmark(this,'${title}','${url}')">Bookmark</div></div></div><div class="post-content">${content}</div><div class="chapter-list" data-labelchapter="${title}"><h2>Daftar Chapter</h2><ul id="chapterList"></ul><div class="show-more" id="showMore"><a href="javascript:void(0)" onclick="showMoreChapters(this)">Show <span id="remainingCount">...</span> more</a></div></div><div class="related-series"><h2>Series Terkait</h2><div id="relatedSeries"></div></div><div class="share-buttons"><a href="javascript:void(0)" onclick="shareFacebook()" class="fb-share">Share on Facebook</a><a href="javascript:void(0)" onclick="shareTwitter()" class="tw-share">Share on Twitter</a><a href="javascript:void(0)" onclick="shareWhatsApp()" class="wa-share">Share on WhatsApp</a><a href="javascript:void(0)" onclick="shareTelegram()" class="tg-share">Share on Telegram</a></div><div class="reactions"><button class="reaction-btn" onclick="react(this,'like')">👍 <span class="reaction-count">0</span></button><button class="reaction-btn" onclick="react(this,'love')">❤️ <span class="reaction-count">0</span></button><button class="reaction-btn" onclick="react(this,'wow')">😮 <span class="reaction-count">0</span></button></div><a href="https://www.buymeacoffee.com/YOUR_USERNAME" target="_blank" class="coffee-btn">Buy Me a Coffee!</a></div>`;document.title=`${title} - ComicKu`;parseSeriesContent();let chapterList=document.querySelector('#chapterList');let showMoreBtn=document.querySelector('#showMore');let remainingCount=document.querySelector('#remainingCount');let relatedSeriesDiv=document.querySelector('#relatedSeries');loadChapterList(title,chapterList,showMoreBtn,remainingCount);debouncedLoadRelatedSeries(title,relatedSeriesDiv);loadReactions()}else{let title=entry.title.$t;let content=entry.content.$t;let seriesTitle=labels.find(label => !['project','chapter'].includes(label));mainContent.innerHTML=`<div class="post-detail" id="post-detail"><div class="post-header"><h1 class="post-title">${title}</h1></div><div class="chapter-content">${content}</div><a href="/search/label/${seriesTitle}" class="coffee-btn" data-spa="true">Back to Series</a><div class="share-buttons"><a href="javascript:void(0)" onclick="shareFacebook()" class="fb-share">Share on Facebook</a><a href="javascript:void(0)" onclick="shareTwitter()" class="tw-share">Share on Twitter</a><a href="javascript:void(0)" onclick="shareWhatsApp()" class="wa-share">Share on WhatsApp</a><a href="javascript:void(0)" onclick="shareTelegram()" class="tg-share">Share on Telegram</a></div><div class="reactions"><button class="reaction-btn" onclick="react(this,'like')">👍 <span class="reaction-count">0</span></button><button class="reaction-btn" onclick="react(this,'love')">❤️ <span class="reaction-count">0</span></button><button class="reaction-btn" onclick="react(this,'wow')">😮 <span class="reaction-count">0</span></button></div><a href="https://www.buymeacoffee.com/YOUR_USERNAME" target="_blank" class="coffee-btn">Buy Me a Coffee!</a></div>`;document.title=`${title} - ComicKu`;loadReactions()}initSPALinks();loadingIndicator.style.display='none'}).catch(error => {console.error('Error loading content:',error);let mainContent=document.getElementById('main-content');mainContent.innerHTML=`<div class="error-404"><h1>404 - Page Not Found</h1><p>Oops! The page you're looking for doesn't exist.</p><a href="${window.location.origin}" data-spa="true">Back to Home</a></div>`;document.title='404 - Page Not Found - ComicKu';initSPALinks();loadingIndicator.style.display='none'})}function initSPALinks(){document.querySelectorAll('a[data-spa="true"]').forEach(link => {link.removeEventListener('click',handleSPALinkClick);link.addEventListener('click',handleSPALinkClick)})}function handleSPALinkClick(e){e.preventDefault();let url=this.href;history.pushState(null,'',url);loadContent(url)}window.addEventListener('popstate',() => loadContent(window.location.href));document.addEventListener('DOMContentLoaded',() => {loadAnnouncement();loadBookmarks();loadLastRead();parseSeriesContent();loadReactions();initSPALinks();let chapterList=document.querySelector('#chapterList');if(chapterList){let seriesTitle=document.querySelector('.chapter-list').getAttribute('data-labelchapter');let showMoreBtn=document.querySelector('#showMore');let remainingCount=document.querySelector('#remainingCount');let relatedSeriesDiv=document.querySelector('#relatedSeries');loadChapterList(seriesTitle,chapterList,showMoreBtn,remainingCount);debouncedLoadRelatedSeries(seriesTitle,relatedSeriesDiv)}})</script>
+  <script>
+    function getCachedData(key, expiry) {
+      let cached = localStorage.getItem(key);
+      if (cached) {
+        let parsed = JSON.parse(cached);
+        if (parsed.expiry > Date.now()) return parsed.data;
+        localStorage.removeItem(key);
+      }
+      return null;
+    }
+
+    function setCachedData(key, data, expiryMinutes) {
+      let expiry = Date.now() + expiryMinutes * 60 * 1000;
+      localStorage.setItem(key, JSON.stringify({ data, expiry }));
+    }
+
+    function debounce(func, wait) {
+      let timeout;
+      return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+      };
+    }
+
+    function loadAnnouncement() {
+      let cached = getCachedData('announcement', 30);
+      if (cached) {
+        let announcementDiv = document.getElementById('announcement');
+        announcementDiv.innerHTML = cached;
+        announcementDiv.style.display = 'block';
+        return;
+      }
+      fetch('/feeds/posts/default/-/announcement?alt=json&max-results=1')
+        .then(response => response.json())
+        .then(data => {
+          let entries = data.feed.entry || [];
+          if (entries.length > 0) {
+            let announcementDiv = document.getElementById('announcement');
+            announcementDiv.innerHTML = entries[0].content.$t;
+            announcementDiv.style.display = 'block';
+            setCachedData('announcement', entries[0].content.$t, 30);
+          }
+        })
+        .catch(error => console.error('Error fetching announcement:', error));
+    }
+
+    function loadChapterList(seriesTitle, chapterList, showMoreBtn, remainingCount) {
+      let cacheKey = `chapterList_${seriesTitle}`;
+      let cached = getCachedData(cacheKey, 60);
+      if (cached) {
+        renderChapterList(cached, seriesTitle, chapterList, showMoreBtn, remainingCount);
+        return;
+      }
+      fetch('/feeds/posts/default/-/' + encodeURIComponent(seriesTitle) + '?alt=json&max-results=100')
+        .then(response => response.json())
+        .then(data => {
+          let chapters = [];
+          let entries = data.feed.entry || [];
+          entries.forEach(entry => {
+            let labels = entry.category ? entry.category.map(cat => cat.term) : [];
+            if (labels.includes('project') && labels.includes('chapter') && labels.includes(seriesTitle)) {
+              chapters.push({
+                title: entry.title.$t,
+                url: entry.link.find(link => link.rel === 'alternate').href,
+                date: new Date(entry.published.$t)
+              });
+            }
+          });
+          chapters.sort((a, b) => b.date - a.date);
+          setCachedData(cacheKey, chapters, 60);
+          renderChapterList(chapters, seriesTitle, chapterList, showMoreBtn, remainingCount);
+        })
+        .catch(error => {
+          console.error('Error fetching chapters:', error);
+          chapterList.innerHTML = '<li>No chapters found.</li>';
+        });
+    }
+
+    function renderChapterList(chapters, seriesTitle, chapterList, showMoreBtn, remainingCount) {
+      chapterList.innerHTML = '';
+      let initialCount = Math.min(10, chapters.length);
+      for (let j = 0; j < initialCount; j++) {
+        let li = document.createElement('li');
+        let a = document.createElement('a');
+        a.href = chapters[j].url;
+        a.setAttribute('data-spa', 'true');
+        a.textContent = chapters[j].title;
+        a.addEventListener('click', function(e) {
+          e.preventDefault();
+          updateLastRead(seriesTitle, chapters[j].title, chapters[j].url);
+          loadContent(chapters[j].url);
+        });
+        li.appendChild(a);
+        chapterList.appendChild(li);
+      }
+      if (chapters.length > 10) {
+        remainingCount.textContent = chapters.length - 10;
+        showMoreBtn.style.display = 'block';
+        let showMoreLink = showMoreBtn.querySelector('a');
+        showMoreLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          showMoreChapters(showMoreBtn);
+        });
+      } else {
+        showMoreBtn.style.display = 'none';
+      }
+      window.allChapters = chapters;
+      let totalChaptersSpan = document.querySelector('#total_chapters');
+      if (totalChaptersSpan) totalChaptersSpan.textContent = chapters.length;
+    }
+
+    const debouncedLoadRelatedSeries = debounce((seriesTitle, relatedSeriesDiv) => {
+      let cacheKey = `relatedSeries_${seriesTitle}`;
+      let cached = getCachedData(cacheKey, 60);
+      if (cached) {
+        renderRelatedSeries(cached, relatedSeriesDiv);
+        return;
+      }
+      fetch('/feeds/posts/default?alt=json&max-results=50')
+        .then(response => response.json())
+        .then(data => {
+          let entries = data.feed.entry || [];
+          let related = [];
+          entries.forEach(entry => {
+            let labels = entry.category ? entry.category.map(cat => cat.term) : [];
+            if ((labels.includes('manga') || labels.includes('manhua') || labels.includes('manhwa')) && labels.includes(seriesTitle)) {
+              let entryTitle = entry.title.$t.trim();
+              if (entryTitle === seriesTitle && entry.link) {
+                let url = entry.link.find(link => link.rel === 'alternate').href;
+                let thumbnail = entry.media$thumbnail ? entry.media$thumbnail.url : 'https://via.placeholder.com/50x75';
+                let type = labels.includes('manga') ? 'manga' : labels.includes('manhua') ? 'manhua' : 'manhwa';
+                related.push({ title: entryTitle + ' (' + type + ')', url, thumbnail });
+              }
+            }
+          });
+          setCachedData(cacheKey, related, 60);
+          renderRelatedSeries(related, relatedSeriesDiv);
+        })
+        .catch(error => console.error('Error fetching related series:', error));
+    }, 300);
+
+    function renderRelatedSeries(related, relatedSeriesDiv) {
+      relatedSeriesDiv.innerHTML = '';
+      related.forEach(item => {
+        if (item.url !== window.location.href) {
+          let div = document.createElement('div');
+          div.className = 'related-item';
+          let img = document.createElement('img');
+          img.src = item.thumbnail;
+          img.setAttribute('loading', 'lazy');
+          img.alt = item.title + ' Cover';
+          let a = document.createElement('a');
+          a.href = item.url;
+          a.setAttribute('data-spa', 'true');
+          a.textContent = item.title;
+          div.appendChild(img);
+          div.appendChild(a);
+          relatedSeriesDiv.appendChild(div);
+        }
+      });
+    }
+
+    function showMoreChapters(showMoreBtn) {
+      let chapterList = showMoreBtn.closest('.chapter-list').querySelector('#chapterList');
+      let chapters = window.allChapters || [];
+      let seriesTitle = showMoreBtn.closest('.chapter-list').getAttribute('data-labelchapter');
+      for (let i = 10; i < chapters.length; i++) {
+        let li = document.createElement('li');
+        let a = document.createElement('a');
+        a.href = chapters[i].url;
+        a.setAttribute('data-spa', 'true');
+        a.textContent = chapters[i].title;
+        a.addEventListener('click', function(e) {
+          e.preventDefault();
+          updateLastRead(seriesTitle, chapters[i].title, chapters[i].url);
+          loadContent(chapters[i].url);
+        });
+        li.appendChild(a);
+        chapterList.appendChild(li);
+      }
+      showMoreBtn.style.display = 'none';
+    }
+
+    function toggleBookmark(btn) {
+      let title = btn.getAttribute('data-title');
+      let url = btn.getAttribute('data-url');
+      let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+      let index = bookmarks.findIndex(b => b.title === title);
+      if (index === -1) {
+        bookmarks.push({ title, url });
+        btn.textContent = 'Unbookmark';
+      } else {
+        bookmarks.splice(index, 1);
+        btn.textContent = 'Bookmark';
+      }
+      localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+      loadBookmarks();
+    }
+
+    function loadBookmarks() {
+      let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+      let bookmarkList = document.getElementById('bookmarkList');
+      bookmarkList.innerHTML = '';
+      bookmarks.forEach(bookmark => {
+        let li = document.createElement('li');
+        let a = document.createElement('a');
+        a.href = bookmark.url;
+        a.setAttribute('data-spa', 'true');
+        a.textContent = bookmark.title;
+        li.appendChild(a);
+        bookmarkList.appendChild(li);
+      });
+      let bookmarkBtn = document.querySelector('.bookmark-btn');
+      if (bookmarkBtn) {
+        let title = bookmarkBtn.getAttribute('data-title');
+        if (bookmarks.some(b => b.title === title)) bookmarkBtn.textContent = 'Unbookmark';
+        else bookmarkBtn.textContent = 'Bookmark';
+      }
+    }
+
+    function updateLastRead(seriesTitle, chapterTitle, chapterUrl) {
+      let lastRead = { seriesTitle, chapterTitle, chapterUrl };
+      localStorage.setItem('lastRead', JSON.stringify(lastRead));
+      loadLastRead();
+    }
+
+    function loadLastRead() {
+      let lastRead = JSON.parse(localStorage.getItem('lastRead'));
+      let lastReadList = document.getElementById('lastReadList');
+      lastReadList.innerHTML = '';
+      if (lastRead) {
+        let li = document.createElement('li');
+        let a = document.createElement('a');
+        a.href = lastRead.chapterUrl;
+        a.setAttribute('data-spa', 'true');
+        a.textContent = `${lastRead.seriesTitle} - ${lastRead.chapterTitle}`;
+        li.appendChild(a);
+        lastReadList.appendChild(li);
+      }
+    }
+
+    function shareFacebook() {
+      let url = encodeURIComponent(window.location.href);
+      window.open('https://www.facebook.com/sharer/sharer.php?u=' + url, '_blank');
+    }
+
+    function shareTwitter() {
+      let url = encodeURIComponent(window.location.href);
+      let text = encodeURIComponent(document.title);
+      window.open('https://twitter.com/intent/tweet?url=' + url + '&text=' + text, '_blank');
+    }
+
+    function shareWhatsApp() {
+      let url = encodeURIComponent(window.location.href);
+      let text = encodeURIComponent(document.title + ' ' + url);
+      window.open('https://api.whatsapp.com/send?text=' + text, '_blank');
+    }
+
+    function shareTelegram() {
+      let url = encodeURIComponent(window.location.href);
+      let text = encodeURIComponent(document.title);
+      window.open('https://telegram.me/share/url?url=' + url + '&text=' + text, '_blank');
+    }
+
+    function react(button) {
+      let type = button.getAttribute('data-reaction');
+      let countSpan = button.querySelector('.reaction-count');
+      let count = parseInt(countSpan.textContent) || 0;
+      countSpan.textContent = count + 1;
+      let postId = window.location.pathname;
+      let key = `reaction_${postId}_${type}`;
+      localStorage.setItem(key, count + 1);
+    }
+
+    function loadReactions() {
+      let postId = window.location.pathname;
+      let buttons = document.querySelectorAll('.reaction-btn');
+      buttons.forEach(button => {
+        let type = button.getAttribute('data-reaction');
+        let key = `reaction_${postId}_${type}`;
+        let count = localStorage.getItem(key) || 0;
+        button.querySelector('.reaction-count').textContent = count;
+        button.addEventListener('click', function() {
+          react(this);
+        });
+      });
+    }
+
+    function parseSeriesContent() {
+      let postContent = document.querySelector('.post-content');
+      if (postContent) {
+        let content = postContent.innerHTML;
+        let artistMatch = content.match(/<b>Artist:<\/b>\s*([^<]*)/i);
+        let altTitlesMatch = content.match(/<b>Alternative Titles:<\/b>\s*([^<]*)/i);
+        let releaseDateMatch = content.match(/<b>Release Date:<\/b>\s*([^<]*)/i);
+        let sourceMatch = content.match(/<b>Source:<\/b>\s*([^<]*)/i);
+        document.querySelector('#artist').textContent = artistMatch ? artistMatch[1].trim() : 'Unknown';
+        document.querySelector('#alt_titles').textContent = altTitlesMatch ? altTitlesMatch[1].trim() : 'N/A';
+        document.querySelector('#release_date').textContent = releaseDateMatch ? releaseDateMatch[1].trim() : 'N/A';
+        document.querySelector('#source').textContent = sourceMatch ? sourceMatch[1].trim() : 'N/A';
+      }
+    }
+
+    function loadContent(url) {
+      let loadingIndicator = document.getElementById('loading-indicator');
+      loadingIndicator.style.display = 'block';
+      fetch(url + '?alt=json')
+        .then(response => response.json())
+        .then(data => {
+          let mainContent = document.getElementById('main-content');
+          mainContent.innerHTML = '';
+          let entries = data.feed.entry || [];
+          if (!entries.length) {
+            mainContent.innerHTML = `<div class="error-404"><h1>404 - Page Not Found</h1><p>Oops! The page you're looking for doesn't exist.</p><a href="${window.location.origin}" data-spa="true">Back to Home</a></div>`;
+            document.title = '404 - Page Not Found - ComicKu';
+            initSPALinks();
+            loadingIndicator.style.display = 'none';
+            return;
+          }
+          let entry = entries[0];
+          let labels = entry.category ? entry.category.map(cat => cat.term) : [];
+          let isSeries = labels.some(label => ['manga', 'manhua', 'manhwa'].includes(label));
+          if (isSeries) {
+            let thumbnail = entry.media$thumbnail ? entry.media$thumbnail.url : 'https://via.placeholder.com/110x165';
+            let title = entry.title.$t;
+            let content = entry.content.$t;
+            let author = entry.author[0].name.$t;
+            let genres = labels.filter(label => !['manga', 'manhua', 'manhwa', 'status', 'hot', title].includes(label));
+            let type = labels.find(label => ['manga', 'manhua', 'manhwa'].includes(label));
+            let status = labels.find(label => ['Ongoing', 'Completed', 'Hiatus', 'Drop'].includes(label)) || 'Unknown';
+            mainContent.innerHTML = `<div class="post-detail" id="post-detail"><div class="post-header"><img src="${thumbnail}" loading="lazy" alt="${title} Cover"/><div class="post-info"><h1 class="post-title">${title}</h1><div class="post-meta"><div><b>Author:</b> ${author}</div><div><b>Artist:</b> <span id="artist">Unknown</span></div><div><b>Alternative Titles:</b> <span id="alt_titles">N/A</span></div><div><b>Release Date:</b> <span id="release_date">N/A</span></div><div><b>Total Chapters:</b> <span id="total_chapters">N/A</span></div><div><b>Source:</b> <span id="source">N/A</span></div><div><b>Genre:</b> ${genres.map(genre => `<a href="/search/label/${genre}" data-spa="true">${genre}</a>`).join(' | ')}</div><div><b>Type:</b> <span class="type">${type}</span></div><div><b>Status:</b> <span class="status">${status}</span></div></div><div class="bookmark-btn" data-title="${title}" data-url="${url}">Bookmark</div></div></div><div class="post-content">${content}</div><div class="chapter-list" data-labelchapter="${title}"><h2>Daftar Chapter</h2><ul id="chapterList"></ul><div class="show-more" id="showMore"><a href="javascript:void(0)">Show <span id="remainingCount">...</span> more</a></div></div><div class="related-series"><h2>Series Terkait</h2><div id="relatedSeries"></div></div><div class="share-buttons"><a href="javascript:void(0)" class="fb-share">Share on Facebook</a><a href="javascript:void(0)" class="tw-share">Share on Twitter</a><a href="javascript:void(0)" class="wa-share">Share on WhatsApp</a><a href="javascript:void(0)" class="tg-share">Share on Telegram</a></div><div class="reactions"><button class="reaction-btn" data-reaction="like">👍 <span class="reaction-count">0</span></button><button class="reaction-btn" data-reaction="love">❤️ <span class="reaction-count">0</span></button><button class="reaction-btn" data-reaction="wow">😮 <span class="reaction-count">0</span></button></div><a href="https://www.buymeacoffee.com/YOUR_USERNAME" target="_blank" class="coffee-btn">Buy Me a Coffee!</a></div>`;
+            document.title = `${title} - ComicKu`;
+            parseSeriesContent();
+            let chapterList = document.querySelector('#chapterList');
+            let showMoreBtn = document.querySelector('#showMore');
+            let remainingCount = document.querySelector('#remainingCount');
+            let relatedSeriesDiv = document.querySelector('#relatedSeries');
+            loadChapterList(title, chapterList, showMoreBtn, remainingCount);
+            debouncedLoadRelatedSeries(title, relatedSeriesDiv);
+            loadReactions();
+            document.querySelectorAll('.bookmark-btn').forEach(btn => {
+              btn.addEventListener('click', function() {
+                toggleBookmark(this);
+              });
+            });
+            document.querySelectorAll('.share-buttons a').forEach(btn => {
+              btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (this.classList.contains('fb-share')) shareFacebook();
+                if (this.classList.contains('tw-share')) shareTwitter();
+                if (this.classList.contains('wa-share')) shareWhatsApp();
+                if (this.classList.contains('tg-share')) shareTelegram();
+              });
+            });
+          } else {
+            let title = entry.title.$t;
+            let content = entry.content.$t;
+            let seriesTitle = labels.find(label => !['project', 'chapter'].includes(label));
+            mainContent.innerHTML = `<div class="post-detail" id="post-detail"><div class="post-header"><h1 class="post-title">${title}</h1></div><div class="chapter-content">${content}</div><a href="/search/label/${seriesTitle}" class="coffee-btn" data-spa="true">Back to Series</a><div class="share-buttons"><a href="javascript:void(0)" class="fb-share">Share on Facebook</a><a href="javascript:void(0)" class="tw-share">Share on Twitter</a><a href="javascript:void(0)" class="wa-share">Share on WhatsApp</a><a href="javascript:void(0)" class="tg-share">Share on Telegram</a></div><div class="reactions"><button class="reaction-btn" data-reaction="like">👍 <span class="reaction-count">0</span></button><button class="reaction-btn" data-reaction="love">❤️ <span class="reaction-count">0</span></button><button class="reaction-btn" data-reaction="wow">😮 <span class="reaction-count">0</span></button></div><a href="https://www.buymeacoffee.com/YOUR_USERNAME" target="_blank" class="coffee-btn">Buy Me a Coffee!</a></div>`;
+            document.title = `${title} - ComicKu`;
+            loadReactions();
+            document.querySelectorAll('.share-buttons a').forEach(btn => {
+              btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (this.classList.contains('fb-share')) shareFacebook();
+                if (this.classList.contains('tw-share')) shareTwitter();
+                if (this.classList.contains('wa-share')) shareWhatsApp();
+                if (this.classList.contains('tg-share')) shareTelegram();
+              });
+            });
+          }
+          initSPALinks();
+          loadingIndicator.style.display = 'none';
+        })
+        .catch(error => {
+          console.error('Error loading content:', error);
+          let mainContent = document.getElementById('main-content');
+          mainContent.innerHTML = `<div class="error-404"><h1>404 - Page Not Found</h1><p>Oops! The page you're looking for doesn't exist.</p><a href="${window.location.origin}" data-spa="true">Back to Home</a></div>`;
+          document.title = '404 - Page Not Found - ComicKu';
+          initSPALinks();
+          loadingIndicator.style.display = 'none';
+        });
+    }
+
+    function initSPALinks() {
+      document.querySelectorAll('a[data-spa="true"]').forEach(link => {
+        link.removeEventListener('click', handleSPALinkClick);
+        link.addEventListener('click', handleSPALinkClick);
+      });
+    }
+
+    function handleSPALinkClick(e) {
+      e.preventDefault();
+      let url = this.href;
+      history.pushState(null, '', url);
+      loadContent(url);
+    }
+
+    window.addEventListener('popstate', () => loadContent(window.location.href));
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadAnnouncement();
+      loadBookmarks();
+      loadLastRead();
+      parseSeriesContent();
+      loadReactions();
+      initSPALinks();
+      let chapterList = document.querySelector('#chapterList');
+      if (chapterList) {
+        let seriesTitle = document.querySelector('.chapter-list').getAttribute('data-labelchapter');
+        let showMoreBtn = document.querySelector('#showMore');
+        let remainingCount = document.querySelector('#remainingCount');
+        let relatedSeriesDiv = document.querySelector('#relatedSeries');
+        loadChapterList(seriesTitle, chapterList, showMoreBtn, remainingCount);
+        debouncedLoadRelatedSeries(seriesTitle, relatedSeriesDiv);
+      }
+      document.querySelectorAll('.bookmark-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          toggleBookmark(this);
+        });
+      });
+      document.querySelectorAll('.share-buttons a').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          if (this.classList.contains('fb-share')) shareFacebook();
+          if (this.classList.contains('tw-share')) shareTwitter();
+          if (this.classList.contains('wa-share')) shareWhatsApp();
+          if (this.classList.contains('tg-share')) shareTelegram();
+        });
+      });
+    });
+  </script>
 </body>
 </html>
