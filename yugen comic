@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:version='2' class='v2' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+  <meta content='width=device-width, initial-scale=1' name='viewport'/>
+  <meta charset='UTF-8'/>
+  <b:include data='blog' name='all-head-content'/>
+  <!-- Meta Tags untuk SEO -->
+  <b:if cond='data:blog.pageType == "index"'>
+    <title><data:blog.title/> - Manga, Manhua, Manhwa</title>
+    <meta content='Baca manga, manhua, dan manhwa terbaru di <data:blog.title/>. Temukan koleksi komik populer dengan update chapter setiap hari.' name='description'/>
+    <meta content='manga, manhua, manhwa, komik online, baca komik' name='keywords'/>
+  <b:elseif cond='data:blog.pageType == "item"'/>
+    <title><data:blog.pageName/> - <data:blog.title/></title>
+    <meta expr:content='"Baca " + data:blog.pageName + " di " + data:blog.title + ". Tersedia informasi lengkap, chapter terbaru, dan update harian."' name='description'/>
+    <meta expr:content='data:blog.pageName + ", manga, manhua, manhwa, komik online, baca komik, " + data:blog.title' name='keywords'/>
+  <b:else/>
+    <title><data:blog.pageTitle/> - <data:blog.title/></title>
+    <meta content='Temukan berbagai manga, manhua, dan manhwa di <data:blog.title/>. Koleksi lengkap dengan update chapter terbaru.' name='description'/>
+    <meta content='manga, manhua, manhwa, komik online, baca komik' name='keywords'/>
+  </b:if>
+  <!-- Open Graph Tags untuk Media Sosial -->
+  <meta expr:content='data:blog.title' property='og:site_name'/>
+  <meta expr:content='data:blog.pageName' property='og:title'/>
+  <meta expr:content='data:blog.url' property='og:url'/>
+  <meta content='article' property='og:type'/>
+  <b:if cond='data:blog.postImageThumbnail'>
+    <meta expr:content='data:blog.postImageThumbnail' property='og:image'/>
+  <b:else/>
+    <meta content='https://via.placeholder.com/110x165' property='og:image'/>
+  </b:if>
+  <b:if cond='data:blog.pageType == "item"'>
+    <meta expr:content='"Baca " + data:blog.pageName + " di " + data:blog.title + ". Tersedia informasi lengkap, chapter terbaru, dan update harian."' property='og:description'/>
+  <b:else/>
+    <meta content='Baca manga, manhua, dan manhwa terbaru di <data:blog.title/>. Temukan koleksi komik populer dengan update chapter setiap hari.' property='og:description'/>
+  </b:if>
+  <!-- Canonical URL -->
+  <link expr:href='data:blog.canonicalUrl' rel='canonical'/>
+  <!-- Preload Google Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' as='style' onload='this.onload=null;this.rel="stylesheet"'/>
+  <b:skin><![CDATA[*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Roboto',sans-serif;background:#F5F5F5;color:#333;line-height:1.6}a{text-decoration:none;color:#1e90ff}a:hover{color:#005cbf}.container{max-width:1200px;margin:0 auto;padding:0 15px}.header{background:#fff;border-bottom:1px solid #ddd;padding:15px 0;position:sticky;top:0;z-index:100}.header .logo{font-size:24px;font-weight:700;color:#333;display:inline-block;vertical-align:middle}.nav-menu{float:right}.nav-menu ul{list-style:none;display:flex}.nav-menu ul li{margin-left:20px}.nav-menu ul li a{color:#333;font-weight:500;font-size:16px}.nav-menu ul li a:hover{color:#1e90ff}.announcement{background:#fff3cd;color:#856404;padding:10px;text-align:center;margin-bottom:20px;border-radius:5px;font-size:14px}.sidebar{margin-bottom:20px;background:#fff;padding:15px;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,0.1)}.sidebar h3{font-size:16px;font-weight:700;margin-bottom:10px}.sidebar ul{list-style:none}.sidebar ul li{margin-bottom:8px}.sidebar ul li a{font-size:14px;color:#1e90ff}.sidebar ul li a:hover{color:#005cbf}.social-buttons{margin-top:15px;display:flex;flex-wrap:wrap;gap:10px}.social-buttons a{display:inline-block;padding:5px 10px;border-radius:5px;font-size:14px;text-align:center;color:#fff}.social-buttons .fb-btn{background:#3b5998}.social-buttons .tw-btn{background:#1da1f2}.social-buttons .ig-btn{background:#e1306c}.social-buttons .yt-btn{background:#ff0000}.social-buttons a:hover{opacity:0.9}.main-wrapper{margin:20px 0;display:flex;gap:20px}.content{flex:1}.post-detail{background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,0.1)}.post-detail .post-header{display:flex;align-items:flex-start;margin-bottom:20px}.post-detail img{width:110px;height:165px;object-fit:cover;border-radius:5px;margin-right:20px}.post-detail .post-info{flex:1}.post-detail .post-title{font-size:24px;font-weight:700;margin-bottom:10px;color:#333}.post-detail .post-meta{font-size:14px;color:#666;margin-bottom:10px}.post-detail .post-meta div{margin-bottom:5px}.post-detail .post-meta .status,.post-detail .post-meta .type{background:#eee;padding:2px 8px;border-radius:3px}.post-detail .post-meta .genre a{color:#1e90ff}.post-detail .post-content{margin-top:20px;font-size:14px;color:#666}.bookmark-btn{background:#1e90ff;color:#fff;padding:5px 10px;border-radius:5px;cursor:pointer;display:inline-block;margin-top:10px}.bookmark-btn:hover{background:#005cbf}.share-buttons{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap}.share-buttons a{display:inline-block;padding:5px 10px;border-radius:5px;font-size:14px;text-align:center;color:#fff}.share-buttons .fb-share{background:#3b5998}.share-buttons .tw-share{background:#1da1f2}.share-buttons .wa-share{background:#25d366}.share-buttons .tg-share{background:#0088cc}.share-buttons a:hover{opacity:0.9}.related-series{margin-top:20px;padding:10px;background:#fff;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,0.1)}.related-series h4{font-size:16px;font-weight:700;margin-bottom:10px}.related-series .related-item{display:flex;align-items:center;margin-bottom:10px}.related-series .related-item img{width:50px;height:75px;object-fit:cover;border-radius:5px;margin-right:10px}.related-series .related-item a{font-size:14px;color:#1e90ff}.chapter-list{margin-top:20px}.chapter-list h3{font-size:18px;font-weight:700;margin-bottom:15px}.chapter-list ul{list-style:none}.chapter-list ul li{margin-bottom:10px}.chapter-list ul li a{font-size:14px;color:#1e90ff;padding:5px 10px;display:block;border-bottom:1px solid #eee}.chapter-list ul li a:hover{background:#f5f5f5}.chapter-list .show-more{margin-top:15px;text-align:center}.chapter-list .show-more a{color:#1e90ff;font-size:14px;cursor:pointer}.chapter-list .show-more a:hover{color:#005cbf}.chapter-content img{max-width:100%;height:auto;display:block;margin:10px auto}.reactions{margin-top:20px;display:flex;gap:10px}.reaction-btn{background:#f0f0f0;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;display:flex;align-items:center;gap:5px}.reaction-btn:hover{background:#e0e0e0}.reaction-count{font-size:12px;color:#666}.coffee-btn{margin-top:20px;display:inline-block;background:#ffdd00;color:#333;padding:10px 20px;border-radius:5px;font-weight:700;text-align:center}.coffee-btn:hover{background:#ffd700}.error-404{text-align:center;padding:50px 0}.error-404 h2{font-size:48px;color:#ff4444;margin-bottom:20px}.error-404 p{font-size:16px;color:#666;margin-bottom:20px}.error-404 a{display:inline-block;background:#1e90ff;color:#fff;padding:10px 20px;border-radius:5px}.error-404 a:hover{background:#005cbf}.footer{background:#333;color:#fff;text-align:center;padding:20px 0;margin-top:20px}.footer p{margin:0;font-size:14px}.footer a{color:#1e90ff}.loading-indicator{display:none;text-align:center;padding:20px}.loading-indicator span{font-size:16px;color:#666}@media (max-width:768px){.main-wrapper{flex-direction:column}.post-detail .post-header{flex-direction:column}.post-detail img{width:100%;height:auto;margin-bottom:15px}.related-series .related-item{flex-direction:column;align-items:flex-start}.related-series .related-item img{margin-bottom:10px}.nav-menu{float:none;text-align:center}.nav-menu ul{flex-direction:column}.nav-menu ul li{margin:10px 0}}]]></b:skin>
+</head>
+<body>
+  <!-- Schema Markup untuk Article -->
+  <b:if cond='data:blog.pageType == "item"'>
+    <script type='application/ld+json'>
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "<data:blog.pageName/>",
+        "description": "<b:eval expr='data:blog.postSnippet ? data:blog.postSnippet : &quot;Baca manga, manhua, dan manhwa terbaru di ComicKu.&quot;'/>",
+        "image": "<b:if cond='data:blog.postImageThumbnail'><data:blog.postImageThumbnail/><b:else/>https://via.placeholder.com/110x165</b:if>",
+        "author": {
+          "@type": "Person",
+          "name": "<data:blog.post.author/>"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "<data:blog.title/>",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://via.placeholder.com/110x165"
+          }
+        },
+        "datePublished": "<data:blog.post.published/>",
+        "dateModified": "<data:blog.post.updated/>",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "<data:blog.url/>"
+        }
+      }
+    </script>
+  </b:if>
+  <b:section class='header' id='header'>
+    <div class='header'>
+      <div class='container'>
+        <a class='logo' expr:href='data:blog.homepageUrl' data-spa='true'>ComicKu</a>
+        <nav class='nav-menu'>
+          <b:widget id='LinkList1' locked='false' title='Menu' type='LinkList'>
+            <b:includable id='main'>
+              <ul>
+                <b:loop values='data:links' var='link'>
+                  <li><a expr:href='data:link.target' data-spa='true'><data:link.name/></a></li>
+                </b:loop>
+              </ul>
+            </b:includable>
+          </b:widget>
+        </nav>
+      </div>
+    </div>
+  </b:section>
+  <div class='container'>
+    <div class='announcement' id='announcement' style='display:none'></div>
+    <div class='main-wrapper'>
+      <aside class='sidebar'>
+        <div id='last-read'>
+          <h3>Terakhir Dibaca</h3>
+          <ul id='lastReadList'></ul>
+        </div>
+        <div id='bookmarks'>
+          <h3>Bookmark</h3>
+          <ul id='bookmarkList'></ul>
+        </div>
+        <div id='social-links'>
+          <h3>Follow Us</h3>
+          <div class='social-buttons'>
+            <a href='https://facebook.com/YOUR_FB_PAGE' target='_blank' class='fb-btn'>Facebook</a>
+            <a href='https://twitter.com/YOUR_TW_HANDLE' target='_blank' class='tw-btn'>Twitter</a>
+            <a href='https://instagram.com/YOUR_IG_HANDLE' target='_blank' class='ig-btn'>Instagram</a>
+            <a href='https://youtube.com/YOUR_YT_CHANNEL' target='_blank' class='yt-btn'>YouTube</a>
+          </div>
+        </div>
+      </aside>
+      <main class='content' id='main-content'>
+        <div class='loading-indicator' id='loading-indicator'><span>Loading...</span></div>
+        <b:section class='main' id='main'>
+          <b:if cond='data:blog.pageType == "index"'>
+            <h1 class='section-title'>New Comics</h1>
+            <div class='post-list' id='post-list'>
+              <b:loop values='data:posts' var='post'>
+                <div class='post-item'>
+                  <b:if cond='data:post.thumbnail'>
+                    <a expr:href='data:post.url' data-spa='true'><img expr:src='data:post.thumbnail' expr:alt='data:post.title + " Cover"' loading='lazy' style='width:110px;height:165px;border-radius:5px'/></a>
+                  <b:else/>
+                    <a expr:href='data:post.url' data-spa='true'><img src='https://via.placeholder.com/110x165' expr:alt='data:post.title + " Cover"' loading='lazy' style='width:110px;height:165px;border-radius:5px'/></a>
+                  </b:if>
+                  <h2><a expr:href='data:post.url' data-spa='true'><data:post.title/></a></h2>
+                </div>
+              </b:loop>
+            </div>
+          <b:elseif cond='data:blog.pageType == "error"'/>
+            <div class='error-404'>
+              <h1>404 - Page Not Found</h1>
+              <p>Oops! The page you're looking for doesn't exist.</p>
+              <a expr:href='data:blog.homepageUrl' data-spa='true'>Back to Home</a>
+            </div>
+          <b:else/>
+            <b:loop values='data:posts' var='post'>
+              <div class='post-detail' id='post-detail'>
+                <b:if cond='data:post.labels any (l => l.name in ["manga", "manhua", "manhwa"])'>
+                  <div class='post-header'>
+                    <b:if cond='data:post.thumbnail'>
+                      <img expr:src='data:post.thumbnail' expr:alt='data:post.title + " Cover"' loading='lazy'/>
+                    <b:else/>
+                      <img src='https://via.placeholder.com/110x165' expr:alt='data:post.title + " Cover"' loading='lazy'/>
+                    </b:if>
+                    <div class='post-info'>
+                      <h1 class='post-title'><data:post.title/></h1>
+                      <div class='post-meta'>
+                        <div><b>Author:</b> <b:eval expr='data:post.author'/></div>
+                        <div><b>Artist:</b> <span id='artist'>Unknown</span></div>
+                        <div><b>Alternative Titles:</b> <span id='alt_titles'>N/A</span></div>
+                        <div><b>Release Date:</b> <span id='release_date'>N/A</span></div>
+                        <div><b>Total Chapters:</b> <span id='total_chapters'>N/A</span></div>
+                        <div><b>Source:</b> <span id='source'>N/A</span></div>
+                        <div><b>Genre:</b> 
+                          <b:loop values='data:post.labels' var='label'>
+                            <b:if cond='data:label.name != "manga" and data:label.name != "manhua" and data:label.name != "manhwa" and data:label.name != "status" and data:label.name != "hot" and data:label.name != data:post.title'>
+                              <a expr:href='data:label.url' data-spa='true'><data:label.name/></a>
+                              <b:if cond='data:label.isLast != "true"'> | </b:if>
+                            </b:if>
+                          </b:loop>
+                        </div>
+                        <div><b>Type:</b> 
+                          <b:loop values='data:post.labels' var='label'>
+                            <b:if cond='data:label.name in ["manga", "manhua", "manhwa"]'>
+                              <span class='type'><data:label.name/></span>
+                              <b:if cond='data:label.isLast != "true"'> | </b:if>
+                            </b:if>
+                          </b:loop>
+                        </div>
+                        <div><b>Status:</b> 
+                          <b:loop values='data:post.labels' var='label'>
+                            <b:if cond='data:label.name in ["Ongoing", "Completed", "Hiatus", "Drop"]'>
+                              <span class='status'><data:label.name/></span>
+                            </b:if>
+                          </b:loop>
+                        </div>
+                      </div>
+                      <div class='bookmark-btn' onclick='toggleBookmark(this, "<data:post.title/>", "<data:post.url/>")'>Bookmark</div>
+                    </div>
+                  </div>
+                  <div class='post-content'>
+                    <data:post.body/>
+                  </div>
+                  <div class='chapter-list' expr:data-labelchapter='data:post.title'>
+                    <h2>Daftar Chapter</h2>
+                    <ul id='chapterList'/>
+                    <div class='show-more' id='showMore'>
+                      <a href='javascript:void(0)' onclick='showMoreChapters(this)'>Show <span id='remainingCount'>...</span> more</a>
+                    </div>
+                  </div>
+                  <div class='related-series'>
+                    <h2>Series Terkait</h2>
+                    <div id='relatedSeries'/>
+                  </div>
+                  <div class='share-buttons'>
+                    <a href='javascript:void(0)' onclick='shareFacebook()' class='fb-share'>Share on Facebook</a>
+                    <a href='javascript:void(0)' onclick='shareTwitter()' class='tw-share'>Share on Twitter</a>
+                    <a href='javascript:void(0)' onclick='shareWhatsApp()' class='wa-share'>Share on WhatsApp</a>
+                    <a href='javascript:void(0)' onclick='shareTelegram()' class='tg-share'>Share on Telegram</a>
+                  </div>
+                <b:else/>
+                  <div class='post-header'>
+                    <h1 class='post-title'><data:post.title/></h1>
+                  </div>
+                  <div class='chapter-content'>
+                    <data:post.body/>
+                  </div>
+                  <a expr:href='data:blog.url' class='coffee-btn' data-spa='true'>Back to Series</a>
+                  <div class='share-buttons'>
+                    <a href='javascript:void(0)' onclick='shareFacebook()' class='fb-share'>Share on Facebook</a>
+                    <a href='javascript:void(0)' onclick='shareTwitter()' class='tw-share'>Share on Twitter</a>
+                    <a href='javascript:void(0)' onclick='shareWhatsApp()' class='wa-share'>Share on WhatsApp</a>
+                    <a href='javascript:void(0)' onclick='shareTelegram()' class='tg-share'>Share on Telegram</a>
+                  </div>
+                </b:if>
+                <div class='reactions'>
+                  <button class='reaction-btn' onclick='react(this, "like")'>👍 <span class='reaction-count'>0</span></button>
+                  <button class='reaction-btn' onclick='react(this, "love")'>❤️ <span class='reaction-count'>0</span></button>
+                  <button class='reaction-btn' onclick='react(this, "wow")'>😮 <span class='reaction-count'>0</span></button>
+                </div>
+                <a href='https://www.buymeacoffee.com/YOUR_USERNAME' target='_blank' class='coffee-btn'>Buy Me a Coffee!</a>
+              </div>
+            </b:loop>
+          </b:if>
+        </b:section>
+      </main>
+    </div>
+  </div>
+  <footer class='footer'>
+    <div class='container'>
+      <p>© 2025 ComicKu. All Rights Reserved. | <a href='/p/contact.html' data-spa='true'>Contact Us</a></p>
+    </div>
+  </footer>
+  <script>function getCachedData(key,expiry){let cached=localStorage.getItem(key);if(cached){let parsed=JSON.parse(cached);if(parsed.expiry>Date.now())return parsed.data;localStorage.removeItem(key)}return null}function setCachedData(key,data,expiryMinutes){let expiry=Date.now()+expiryMinutes*60*1000;localStorage.setItem(key,JSON.stringify({data,expiry}))}function debounce(func,wait){let timeout;return function(...args){clearTimeout(timeout);timeout=setTimeout(() => func.apply(this,args),wait)}}function loadAnnouncement(){let cached=getCachedData('announcement',30);if(cached){let announcementDiv=document.getElementById('announcement');announcementDiv.innerHTML=cached;announcementDiv.style.display='block';return}fetch('/feeds/posts/default/-/announcement?alt=json&max-results=1').then(response => response.json()).then(data => {let entries=data.feed.entry||[];if(entries.length>0){let announcementDiv=document.getElementById('announcement');announcementDiv.innerHTML=entries[0].content.$t;announcementDiv.style.display='block';setCachedData('announcement',entries[0].content.$t,30)}}).catch(error => console.error('Error fetching announcement:',error))}function loadChapterList(seriesTitle,chapterList,showMoreBtn,remainingCount){let cacheKey=`chapterList_${seriesTitle}`;let cached=getCachedData(cacheKey,60);if(cached){renderChapterList(cached,seriesTitle,chapterList,showMoreBtn,remainingCount);return}fetch('/feeds/posts/default/-/' + encodeURIComponent(seriesTitle) + '?alt=json&max-results=100').then(response => response.json()).then(data => {let chapters=[];let entries=data.feed.entry||[];entries.forEach(entry => {let labels=entry.category?entry.category.map(cat => cat.term):[];if(labels.includes('project')&&labels.includes('chapter')&&labels.includes(seriesTitle)){chapters.push({title:entry.title.$t,url:entry.link.find(link => link.rel === 'alternate').href,date:new Date(entry.published.$t)})}});chapters.sort((a,b) => b.date-a.date);setCachedData(cacheKey,chapters,60);renderChapterList(chapters,seriesTitle,chapterList,showMoreBtn,remainingCount)}).catch(error => {console.error('Error fetching chapters:',error);chapterList.innerHTML='<li>No chapters found.</li>'})}function renderChapterList(chapters,seriesTitle,chapterList,showMoreBtn,remainingCount){chapterList.innerHTML='';let initialCount=Math.min(10,chapters.length);for(let j=0;j<initialCount;j++){let li=document.createElement('li');li.innerHTML=`<a href="${chapters[j].url}" data-spa="true" onclick="updateLastRead('${seriesTitle}','${chapters[j].title}','${chapters[j].url}')">${chapters[j].title}</a>`;chapterList.appendChild(li)}if(chapters.length>10){remainingCount.textContent=chapters.length-10;showMoreBtn.style.display='block'}else{showMoreBtn.style.display='none'}window.allChapters=chapters;let totalChaptersSpan=document.querySelector('#total_chapters');if(totalChaptersSpan)totalChaptersSpan.textContent=chapters.length}const debouncedLoadRelatedSeries=debounce((seriesTitle,relatedSeriesDiv) => {let cacheKey=`relatedSeries_${seriesTitle}`;let cached=getCachedData(cacheKey,60);if(cached){renderRelatedSeries(cached,relatedSeriesDiv);return}fetch('/feeds/posts/default?alt=json&max-results=50').then(response => response.json()).then(data => {let entries=data.feed.entry||[];let related=[];entries.forEach(entry => {let labels=entry.category?entry.category.map(cat => cat.term):[];if((labels.includes('manga')||labels.includes('manhua')||labels.includes('manhwa'))&&labels.includes(seriesTitle)){let entryTitle=entry.title.$t.trim();if(entryTitle===seriesTitle&&entry.link){let url=entry.link.find(link => link.rel === 'alternate').href;let thumbnail=entry.media$thumbnail?entry.media$thumbnail.url:'https://via.placeholder.com/50x75';let type=labels.includes('manga')?'manga':labels.includes('manhua')?'manhua':'manhwa';related.push({title:entryTitle+' ('+type+')',url,thumbnail})}}});setCachedData(cacheKey,related,60);renderRelatedSeries(related,relatedSeriesDiv)}).catch(error => console.error('Error fetching related series:',error))},300);function renderRelatedSeries(related,relatedSeriesDiv){relatedSeriesDiv.innerHTML='';related.forEach(item => {if(item.url!==window.location.href){let div=document.createElement('div');div.className='related-item';div.innerHTML=`<img src="${item.thumbnail}" loading="lazy" alt="${item.title} Cover"><a href="${item.url}" data-spa="true">${item.title}</a>`;relatedSeriesDiv.appendChild(div)}})}function showMoreChapters(btn){let chapterList=btn.closest('.chapter-list').querySelector('#chapterList');let chapters=window.allChapters||[];for(let i=10;i<chapters.length;i++){let li=document.createElement('li');li.innerHTML=`<a href="${chapters[i].url}" data-spa="true" onclick="updateLastRead('${chapters[i].seriesTitle}','${chapters[i].title}','${chapters[i].url}')">${chapters[i].title}</a>`;chapterList.appendChild(li)}btn.parentElement.style.display='none'}function toggleBookmark(btn,title,url){let bookmarks=JSON.parse(localStorage.getItem('bookmarks'))||[];let index=bookmarks.findIndex(b => b.title===title);if(index===-1){bookmarks.push({title,url});btn.textContent='Unbookmark'}else{bookmarks.splice(index,1);btn.textContent='Bookmark'}localStorage.setItem('bookmarks',JSON.stringify(bookmarks));loadBookmarks()}function loadBookmarks(){let bookmarks=JSON.parse(localStorage.getItem('bookmarks'))||[];let bookmarkList=document.getElementById('bookmarkList');bookmarkList.innerHTML='';bookmarks.forEach(bookmark => {let li=document.createElement('li');li.innerHTML=`<a href="${bookmark.url}" data-spa="true">${bookmark.title}</a>`;bookmarkList.appendChild(li)});let bookmarkBtn=document.querySelector('.bookmark-btn');if(bookmarkBtn){let title=bookmarkBtn.parentElement.querySelector('.post-title').textContent.trim();if(bookmarks.some(b => b.title===title))bookmarkBtn.textContent='Unbookmark';else bookmarkBtn.textContent='Bookmark'}}function updateLastRead(seriesTitle,chapterTitle,chapterUrl){let lastRead={seriesTitle,chapterTitle,chapterUrl};localStorage.setItem('lastRead',JSON.stringify(lastRead));loadLastRead()}function loadLastRead(){let lastRead=JSON.parse(localStorage.getItem('lastRead'));let lastReadList=document.getElementById('lastReadList');lastReadList.innerHTML='';if(lastRead){let li=document.createElement('li');li.innerHTML=`<a href="${lastRead.chapterUrl}" data-spa="true">${lastRead.seriesTitle} - ${lastRead.chapterTitle}</a>`;lastReadList.appendChild(li)}}function shareFacebook(){let url=encodeURIComponent(window.location.href);window.open('https://www.facebook.com/sharer/sharer.php?u='+url,'_blank')}function shareTwitter(){let url=encodeURIComponent(window.location.href);let text=encodeURIComponent(document.title);window.open('https://twitter.com/intent/tweet?url='+url+'&text='+text,'_blank')}function shareWhatsApp(){let url=encodeURIComponent(window.location.href);let text=encodeURIComponent(document.title+' '+url);window.open('https://api.whatsapp.com/send?text='+text,'_blank')}function shareTelegram(){let url=encodeURIComponent(window.location.href);let text=encodeURIComponent(document.title);window.open('https://telegram.me/share/url?url='+url+'&text='+text,'_blank')}function react(button,type){let countSpan=button.querySelector('.reaction-count');let count=parseInt(countSpan.textContent)||0;countSpan.textContent=count+1;let postId=window.location.pathname;let key=`reaction_${postId}_${type}`;localStorage.setItem(key,count+1)}function loadReactions(){let postId=window.location.pathname;let buttons=document.querySelectorAll('.reaction-btn');buttons.forEach(button => {let type=button.getAttribute('onclick').match(/"([^"]+)"/)[1];let key=`reaction_${postId}_${type}`;let count=localStorage.getItem(key)||0;button.querySelector('.reaction-count').textContent=count})}function parseSeriesContent(){let postContent=document.querySelector('.post-content');if(postContent){let content=postContent.innerHTML;let artistMatch=content.match(/<b>Artist:<\/b>\s*([^<]*)/i);let altTitlesMatch=content.match(/<b>Alternative Titles:<\/b>\s*([^<]*)/i);let releaseDateMatch=content.match(/<b>Release Date:<\/b>\s*([^<]*)/i);let sourceMatch=content.match(/<b>Source:<\/b>\s*([^<]*)/i);document.querySelector('#artist').textContent=artistMatch?artistMatch[1].trim():'Unknown';document.querySelector('#alt_titles').textContent=altTitlesMatch?altTitlesMatch[1].trim():'N/A';document.querySelector('#release_date').textContent=releaseDateMatch?releaseDateMatch[1].trim():'N/A';document.querySelector('#source').textContent=sourceMatch?sourceMatch[1].trim():'N/A'}}function loadContent(url){let loadingIndicator=document.getElementById('loading-indicator');loadingIndicator.style.display='block';fetch(url+'?alt=json').then(response => response.json()).then(data => {let mainContent=document.getElementById('main-content');mainContent.innerHTML='';let entries=data.feed.entry||[];if(!entries.length){mainContent.innerHTML=`<div class="error-404"><h1>404 - Page Not Found</h1><p>Oops! The page you're looking for doesn't exist.</p><a href="${window.location.origin}" data-spa="true">Back to Home</a></div>`;document.title='404 - Page Not Found - ComicKu';initSPALinks();loadingIndicator.style.display='none';return}let entry=entries[0];let labels=entry.category?entry.category.map(cat => cat.term):[];let isSeries=labels.some(label => ['manga','manhua','manhwa'].includes(label));if(isSeries){let thumbnail=entry.media$thumbnail?entry.media$thumbnail.url:'https://via.placeholder.com/110x165';let title=entry.title.$t;let content=entry.content.$t;let author=entry.author[0].name.$t;let genres=labels.filter(label => !['manga','manhua','manhwa','status','hot',title].includes(label));let type=labels.find(label => ['manga','manhua','manhwa'].includes(label));let status=labels.find(label => ['Ongoing','Completed','Hiatus','Drop'].includes(label))||'Unknown';mainContent.innerHTML=`<div class="post-detail" id="post-detail"><div class="post-header"><img src="${thumbnail}" loading="lazy" alt="${title} Cover"/><div class="post-info"><h1 class="post-title">${title}</h1><div class="post-meta"><div><b>Author:</b> ${author}</div><div><b>Artist:</b> <span id="artist">Unknown</span></div><div><b>Alternative Titles:</b> <span id="alt_titles">N/A</span></div><div><b>Release Date:</b> <span id="release_date">N/A</span></div><div><b>Total Chapters:</b> <span id="total_chapters">N/A</span></div><div><b>Source:</b> <span id="source">N/A</span></div><div><b>Genre:</b> ${genres.map(genre => `<a href="/search/label/${genre}" data-spa="true">${genre}</a>`).join(' | ')}</div><div><b>Type:</b> <span class="type">${type}</span></div><div><b>Status:</b> <span class="status">${status}</span></div></div><div class="bookmark-btn" onclick="toggleBookmark(this,'${title}','${url}')">Bookmark</div></div></div><div class="post-content">${content}</div><div class="chapter-list" data-labelchapter="${title}"><h2>Daftar Chapter</h2><ul id="chapterList"></ul><div class="show-more" id="showMore"><a href="javascript:void(0)" onclick="showMoreChapters(this)">Show <span id="remainingCount">...</span> more</a></div></div><div class="related-series"><h2>Series Terkait</h2><div id="relatedSeries"></div></div><div class="share-buttons"><a href="javascript:void(0)" onclick="shareFacebook()" class="fb-share">Share on Facebook</a><a href="javascript:void(0)" onclick="shareTwitter()" class="tw-share">Share on Twitter</a><a href="javascript:void(0)" onclick="shareWhatsApp()" class="wa-share">Share on WhatsApp</a><a href="javascript:void(0)" onclick="shareTelegram()" class="tg-share">Share on Telegram</a></div><div class="reactions"><button class="reaction-btn" onclick="react(this,'like')">👍 <span class="reaction-count">0</span></button><button class="reaction-btn" onclick="react(this,'love')">❤️ <span class="reaction-count">0</span></button><button class="reaction-btn" onclick="react(this,'wow')">😮 <span class="reaction-count">0</span></button></div><a href="https://www.buymeacoffee.com/YOUR_USERNAME" target="_blank" class="coffee-btn">Buy Me a Coffee!</a></div>`;document.title=`${title} - ComicKu`;parseSeriesContent();let chapterList=document.querySelector('#chapterList');let showMoreBtn=document.querySelector('#showMore');let remainingCount=document.querySelector('#remainingCount');let relatedSeriesDiv=document.querySelector('#relatedSeries');loadChapterList(title,chapterList,showMoreBtn,remainingCount);debouncedLoadRelatedSeries(title,relatedSeriesDiv);loadReactions()}else{let title=entry.title.$t;let content=entry.content.$t;let seriesTitle=labels.find(label => !['project','chapter'].includes(label));mainContent.innerHTML=`<div class="post-detail" id="post-detail"><div class="post-header"><h1 class="post-title">${title}</h1></div><div class="chapter-content">${content}</div><a href="/search/label/${seriesTitle}" class="coffee-btn" data-spa="true">Back to Series</a><div class="share-buttons"><a href="javascript:void(0)" onclick="shareFacebook()" class="fb-share">Share on Facebook</a><a href="javascript:void(0)" onclick="shareTwitter()" class="tw-share">Share on Twitter</a><a href="javascript:void(0)" onclick="shareWhatsApp()" class="wa-share">Share on WhatsApp</a><a href="javascript:void(0)" onclick="shareTelegram()" class="tg-share">Share on Telegram</a></div><div class="reactions"><button class="reaction-btn" onclick="react(this,'like')">👍 <span class="reaction-count">0</span></button><button class="reaction-btn" onclick="react(this,'love')">❤️ <span class="reaction-count">0</span></button><button class="reaction-btn" onclick="react(this,'wow')">😮 <span class="reaction-count">0</span></button></div><a href="https://www.buymeacoffee.com/YOUR_USERNAME" target="_blank" class="coffee-btn">Buy Me a Coffee!</a></div>`;document.title=`${title} - ComicKu`;loadReactions()}initSPALinks();loadingIndicator.style.display='none'}).catch(error => {console.error('Error loading content:',error);let mainContent=document.getElementById('main-content');mainContent.innerHTML=`<div class="error-404"><h1>404 - Page Not Found</h1><p>Oops! The page you're looking for doesn't exist.</p><a href="${window.location.origin}" data-spa="true">Back to Home</a></div>`;document.title='404 - Page Not Found - ComicKu';initSPALinks();loadingIndicator.style.display='none'})}function initSPALinks(){document.querySelectorAll('a[data-spa="true"]').forEach(link => {link.removeEventListener('click',handleSPALinkClick);link.addEventListener('click',handleSPALinkClick)})}function handleSPALinkClick(e){e.preventDefault();let url=this.href;history.pushState(null,'',url);loadContent(url)}window.addEventListener('popstate',() => loadContent(window.location.href));document.addEventListener('DOMContentLoaded',() => {loadAnnouncement();loadBookmarks();loadLastRead();parseSeriesContent();loadReactions();initSPALinks();let chapterList=document.querySelector('#chapterList');if(chapterList){let seriesTitle=document.querySelector('.chapter-list').getAttribute('data-labelchapter');let showMoreBtn=document.querySelector('#showMore');let remainingCount=document.querySelector('#remainingCount');let relatedSeriesDiv=document.querySelector('#relatedSeries');loadChapterList(seriesTitle,chapterList,showMoreBtn,remainingCount);debouncedLoadRelatedSeries(seriesTitle,relatedSeriesDiv)}})</script>
+</body>
+</html>
