@@ -5,32 +5,42 @@
   <!-- Meta Tags untuk SEO -->
   <meta charset='UTF-8'/>
   <meta content='width=device-width, initial-scale=1.0' name='viewport'/>
-  <meta expr:content='"Baca novel terjemahan danmei BL Tiongkok di " + data:blog.title' name='description'/>
+  <meta expr:content='data:blog.pageTitle + " - Baca novel terjemahan danmei BL Tiongkok"' name='description'/>
   <meta content='novel danmei, terjemahan danmei, BL Tiongkok, novel BL, romansa pria, fiksi Tiongkok' name='keywords'/>
   <meta content='Nama Anda' name='author'/>
   <meta content='index, follow' name='robots'/>
   <!-- Open Graph -->
   <meta expr:content='data:blog.pageTitle' property='og:title'/>
-  <meta content='Baca novel terjemahan danmei BL Tiongkok terbaik.' property='og:description'/>
-  <meta content='URL_GAMBAR_DEFAULT' property='og:image'/>
+  <meta expr:content='data:blog.metaDescription' property='og:description'/>
+  <meta expr:content='data:post.thumbnail' property='og:image' expr:condition='data:post.thumbnail'/>
+  <meta content='URL_GAMBAR_DEFAULT' property='og:image' expr:condition='!data:post.thumbnail'/>
   <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
-  <meta content='website' property='og:type'/>
+  <meta content='article' property='og:type'/>
   <!-- Twitter Card -->
   <meta content='summary_large_image' name='twitter:card'/>
   <meta expr:content='data:blog.pageTitle' name='twitter:title'/>
-  <meta content='Baca novel terjemahan danmei BL Tiongkok terbaik.' name='twitter:description'/>
-  <meta content='URL_GAMBAR_DEFAULT' name='twitter:image'/>
+  <meta expr:content='data:blog.metaDescription' name='twitter:description'/>
+  <meta expr:content='data:post.thumbnail' name='twitter:image' expr:condition='data:post.thumbnail'/>
+  <meta content='URL_GAMBAR_DEFAULT' name='twitter:image' expr:condition='!data:post.thumbnail'/>
   <!-- Schema Markup -->
   <script type='application/ld+json'>
     {
       "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "<data:blog.title/>",
-      "url": "<data:blog.canonicalUrl/>",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "<data:blog.homepageUrl/>search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
+      "@type": "Article",
+      "headline": "<data:blog.pageTitle/>",
+      "image": "<data:post.thumbnail ? data:post.thumbnail : 'URL_GAMBAR_DEFAULT'/>",
+      "datePublished": "<data:post.timestampISO8601/>",
+      "author": {
+        "@type": "Person",
+        "name": "Nama Anda"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "<data:blog.title/>",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "<data:blog.logo/>"
+        }
       }
     }
   </script>
@@ -38,6 +48,8 @@
   <link expr:href='data:blog.favicon' rel='icon' type='image/x-icon'/>
   <!-- Google Fonts -->
   <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap' rel='stylesheet'/>
+  <!-- Font Awesome untuk ikon -->
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'/>
   <!-- CSS -->
   <b:skin><![CDATA[
     /* Reset CSS */
@@ -56,129 +68,88 @@
     }
     /* Header */
     .header {
-      background: #333;
+      background: #8B4513; /* Cokelat seperti contoh */
       color: #fff;
-      padding: 15px 20px;
+      padding: 10px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
-    }
-    .header .logo {
-      max-width: 150px;
-      height: auto;
-    }
-    .header h1 {
-      font-family: 'Roboto', sans-serif;
-      font-size: 24px;
-      margin: 0;
-      flex: 1;
-      text-align: center;
-    }
-    .header .search-bar {
-      display: flex;
-      align-items: center;
-    }
-    .header .search-bar input[type="text"] {
-      padding: 6px;
-      border: 1px solid #ddd;
-      border-radius: 3px 0 0 3px;
-      font-size: 14px;
-      background: #fff;
-      color: #333;
-    }
-    body.dark-mode .header .search-bar input[type="text"] {
-      background: #333;
-      border-color: #444;
-      color: #e0e0e0;
-    }
-    .header .search-bar button {
-      padding: 6px 10px;
-      background: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 0 3px 3px 0;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .header .search-bar button:hover {
-      background: #0056b3;
-    }
-    /* Navbar */
-    .navbar {
-      background: #444;
-      padding: 12px 20px;
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
-    .navbar .nav-container {
+    .header .logo {
+      font-family: 'Roboto', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #D3D3D3; /* Abu-abu terang */
+      text-align: center;
+      flex: 1;
+    }
+    .header .nav-toggle {
+      font-size: 24px;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      padding: 5px;
+    }
+    .header .nav-toggle i {
+      font-size: 24px;
+    }
+    .header .controls {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
+      gap: 10px;
+    }
+    .header .controls .dark-mode-toggle,
+    .header .controls .search-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      font-size: 20px;
+      padding: 5px;
+    }
+    .header .controls .dark-mode-toggle i {
+      font-size: 20px;
+    }
+    .header .controls .search-btn i {
+      font-size: 20px;
+    }
+    /* Navbar Dropdown */
+    .navbar {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 200px;
+      background: #8B4513;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      border-radius: 5px;
+      z-index: 1000;
+    }
+    .navbar.active {
+      display: block;
     }
     .navbar ul {
       list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
+      padding: 10px 0;
     }
     .navbar ul li {
-      position: relative;
-      margin: 0 15px;
+      padding: 10px 20px;
     }
     .navbar ul li a {
       color: #fff;
       text-decoration: none;
       font-family: 'Roboto', sans-serif;
-      font-weight: 600;
       font-size: 16px;
-      transition: color 0.3s ease;
+      display: block;
     }
     .navbar ul li a:hover {
-      color: #007bff;
-    }
-    /* Dropdown Menu */
-    .navbar ul li.dropdown:hover .dropdown-content {
-      display: block;
-    }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background: #444;
-      min-width: 160px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      z-index: 1;
-      border-radius: 5px;
-      top: 100%;
-      left: 0;
-    }
-    .dropdown-content a {
+      background: #A0522D;
       color: #fff;
-      padding: 12px 16px;
-      display: block;
-      text-align: left;
-      font-size: 14px;
-    }
-    .dropdown-content a:hover {
-      background: #555;
-      color: #007bff;
-    }
-    /* Dark Mode Toggle */
-    .dark-mode-toggle {
-      padding: 6px 12px;
-      background: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .dark-mode-toggle:hover {
-      background: #0056b3;
     }
     /* Container */
     .container {
@@ -212,322 +183,671 @@
       background: #2a2a2a;
       box-shadow: 0 2px 5px rgba(255,255,255,0.1);
     }
-    /* Post Grid */
-    .post-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    /* Detail Series */
+    .series-detail {
+      display: flex;
       gap: 20px;
     }
-    .post-card {
+    .series-detail img {
+      width: 150px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .series-detail .content {
+      flex: 1;
+    }
+    .series-detail h1 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    body.dark-mode .series-detail h1 {
+      color: #e0e0e0;
+    }
+    .series-detail .genre {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 15px;
+    }
+    body.dark-mode .series-detail .genre {
+      color: #aaa;
+    }
+    .series-detail .synopsis {
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+    .series-detail .stats {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 15px;
+    }
+    body.dark-mode .series-detail .stats {
+      color: #bbb;
+    }
+    .series-detail .donate-btn {
+      background: #ff9900;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+    }
+    .series-detail .donate-btn:hover {
+      background: #e68a00;
+    }
+    /* Related Stories */
+    .related-stories {
+      margin-top: 20px;
+    }
+    .related-stories h2 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    body.dark-mode .related-stories h2 {
+      color: #e0e0e0;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .related-card {
+      background: #f9f9f9;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      text-align: center;
+    }
+    body.dark-mode .related-card {
+      background: #333;
+      border-color: #444;
+    }
+    .related-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 3px;
+      margin-bottom: 10px;
+    }
+    .related-card a {
+      color: #333;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    body.dark-mode .related-card a {
+      color: #e0e0e0;
+    }
+    .related-card a:hover {
+      color: #007bff;
+    }
+    /* Reading and Bookmark Buttons */
+    .action-buttons {
+      margin-top: 15px;
+      display: flex;
+      gap: 10px;
+    }
+    .reading-btn, .bookmark-btn {
+      background: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .reading-btn:hover, .bookmark-btn:hover {
+      background: #0056b3;
+    }
+    .reading-btn.reading, .bookmark-btn.bookmarked {
+      background: #28a745;
+    }
+    .reading-btn.reading:hover, .bookmark-btn.bookmarked:hover {
+      background: #218838;
+    }
+    /* Reading History */
+    .reading-history {
+      margin: 20px 0;
+      padding: 15px;
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    body.dark-mode .reading-history {
+      background: #333;
+      border-color: #444;
+    }
+    .reading-history h2 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    body.dark-mode .reading-history h2 {
+      color: #e0e0e0;
+    }
+    .reading-history p {
+      font-size: 14px;
+      color: #666;
+    }
+    body.dark-mode .reading-history p {
+      color: #bbb;
+    }
+    .reading-history a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    .reading-history a:hover {
+      text-decoration: underline;
+    }
+    /* Chapter List */
+    .chapter-list {
+      margin-top: 20px;
+    }
+    .chapter-list h2 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    body.dark-mode .chapter-list h2 {
+      color: #e0e0e0;
+    }
+    .chapter-list ul {
+      list-style: none;
+    }
+    .chapter-list ul li {
+      padding: 8px 0;
+      border-bottom: 1px solid #ddd;
+    }
+    body.dark-mode .chapter-list ul li {
+      border-bottom: 1px solid #444;
+    }
+    .chapter-list ul li a {
+      color: #007bff;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .chapter-list ul li a:hover {
+      text-decoration: underline;
+    }
+    .chapter-list .show-more {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 15px;
+      background: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 3px;
+    }
+    .chapter-list .show-more:hover {
+      background: #0056b3;
+    }
+    /* Chapter Page */
+    .chapter-content {
+      margin: 20px 0;
+    }
+    .chapter-content h1 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    body.dark-mode .chapter-content h1 {
+      color: #e0e0e0;
+    }
+    .chapter-content .chapter-body {
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .chapter-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+    .chapter-navigation a, .chapter-navigation select {
+      padding: 8px 15px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .chapter-navigation a:hover, .chapter-navigation select:hover {
+      background: #0056b3;
+    }
+    .chapter-navigation a.disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    .chapter-navigation select {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      padding: 8px;
+      max-width: 200px;
+    }
+    /* Comments Section */
+    .comments-section {
+      margin-top: 30px;
+    }
+    .comments-section h2 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    body.dark-mode .comments-section h2 {
+      color: #e0e0e0;
+    }
+    #disqus_thread {
+      margin-top: 20px;
+    }
+    /* Bookmark Page */
+    .bookmark-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      min-height: 0;
+    }
+    .bookmark-card {
       background: #fff;
       padding: 15px;
       border: 1px solid #ddd;
       border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-      text-align: center;
     }
-    body.dark-mode .post-card {
+    body.dark-mode .bookmark-card {
       background: #333;
       border-color: #444;
+      box-shadow: 0 2px 5px rgba(255,255,255,0.1);
     }
-    .post-card:hover {
+    .bookmark-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
-    body.dark-mode .post-card:hover {
+    body.dark-mode .bookmark-card:hover {
       box-shadow: 0 4px 10px rgba(255,255,255,0.15);
     }
-    .post-card img {
+    .bookmark-card img {
       width: 100px;
       height: 150px;
       object-fit: cover;
-      margin: 0 auto 10px;
+      margin-right: 15px;
       border-radius: 3px;
-      display: block;
     }
-    .post-card h2 {
+    .bookmark-card .card-content {
+      flex: 1;
+      text-align: left;
+    }
+    .bookmark-card h2 {
       font-family: 'Roboto', sans-serif;
-      font-size: 16px;
+      font-size: 18px;
       margin: 0 0 8px;
       line-height: 1.4;
+      color: #333;
     }
-    .post-card p {
-      font-size: 13px;
-      color: #666;
-      margin-bottom: 8px;
+    body.dark-mode .bookmark-card h2 {
+      color: #e0e0e0;
     }
-    body.dark-mode .post-card p {
-      color: #bbb;
-    }
-    .post-card a.read-more {
-      color: #007bff;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 13px;
-      display: inline-block;
-      padding: 5px 10px;
-      border: 1px solid #007bff;
-      border-radius: 3px;
-    }
-    .post-card a.read-more:hover {
-      background: #007bff;
+    .bookmark-card .remove-btn {
+      background: #dc3545;
       color: #fff;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 12px;
     }
-    /* Post Content */
-    .post-body {
-      margin: 20px 0;
+    .bookmark-card .remove-btn:hover {
+      background: #c82333;
     }
-    .post-body h2 {
-      font-family: 'Roboto', sans-serif;
-      font-size: 24px;
-      margin-bottom: 15px;
-    }
-    .post-body h3 {
-      font-size: 18px;
-      margin: 15px 0 10px;
-    }
-    .post-body p {
-      margin-bottom: 15px;
-    }
-    .post-body img {
-      max-width: 100%;
-      height: auto;
+    /* Advanced Search Page */
+    .advanced-search {
+      margin-bottom: 20px;
+      padding: 20px;
+      background: #f9f9f9;
+      border: 1px solid #ddd;
       border-radius: 5px;
     }
-    .post-nav {
-      margin: 20px 0;
-      font-size: 14px;
-      display: flex;
-      justify-content: space-between;
-    }
-    .post-nav a {
-      color: #007bff;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .post-nav a:hover {
-      text-decoration: underline;
-    }
-    /* Pagination */
-    .pagination {
-      text-align: center;
-      margin: 20px 0;
-    }
-    .pagination a {
-      display: inline-block;
-      padding: 8px 12px;
-      margin: 0 5px;
-      background: #007bff;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 3px;
-      font-size: 14px;
-    }
-    .pagination a:hover {
-      background: #0056b3;
-    }
-    .pagination span {
-      display: inline-block;
-      padding: 8px 12px;
-      margin: 0 5px;
-      background: #ddd;
-      color: #333;
-      border-radius: 3px;
-      font-size: 14px;
-    }
-    /* Sidebar Widgets */
-    .widget {
-      margin-bottom: 25px;
-    }
-    .widget h3 {
-      font-family: 'Roboto', sans-serif;
-      font-size: 16px;
-      margin-bottom: 10px;
-      border-bottom: 2px solid #007bff;
-      padding-bottom: 5px;
-    }
-    .widget ul {
-      list-style: none;
-    }
-    .widget ul li {
-      margin-bottom: 10px;
-    }
-    .widget ul li a {
-      color: #333;
-      text-decoration: none;
-      font-size: 14px;
-    }
-    body.dark-mode .widget ul li a {
-      color: #e0e0e0;
-    }
-    .widget ul li a:hover {
-      color: #007bff;
-    }
-    .widget .search-form {
-      display: flex;
-    }
-    .widget .search-form input[type="text"] {
-      flex: 1;
-      padding: 8px;
-      border: 1px solid #ddd;
-      border-radius: 3px 0 0 3px;
-      font-size: 14px;
-    }
-    body.dark-mode .widget .search-form input[type="text"] {
+    body.dark-mode .advanced-search {
       background: #333;
       border-color: #444;
+    }
+    .advanced-search h2 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    body.dark-mode .advanced-search h2 {
       color: #e0e0e0;
     }
-    .widget .search-form button {
-      padding: 8px 12px;
+    .advanced-search form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      align-items: center;
+    }
+    .advanced-search label {
+      font-size: 14px;
+      color: #333;
+    }
+    body.dark-mode .advanced-search label {
+      color: #e0e0e0;
+    }
+    .advanced-search input[type="text"],
+    .advanced-search select {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      font-size: 14px;
+      width: 200px;
+      background: #fff;
+      color: #333;
+    }
+    body.dark-mode .advanced-search input[type="text"],
+    body.dark-mode .advanced-search select {
+      background: #444;
+      border-color: #555;
+      color: #e0e0e0;
+    }
+    .advanced-search button {
+      padding: 8px 20px;
       background: #007bff;
       color: #fff;
       border: none;
-      border-radius: 0 3px 3px 0;
+      border-radius: 5px;
       cursor: pointer;
       font-size: 14px;
     }
-    .widget .search-form button:hover {
+    .advanced-search button:hover {
       background: #0056b3;
     }
-    /* Genre Filter */
-    .genre-filter {
-      margin-bottom: 20px;
+    /* Search Results */
+    .search-results {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
     }
-    .genre-filter select {
-      padding: 8px;
-      width: 100%;
+    .search-result-card {
+      background: #fff;
+      padding: 15px;
       border: 1px solid #ddd;
-      border-radius: 3px;
-      font-size: 14px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    body.dark-mode .genre-filter select {
+    body.dark-mode .search-result-card {
       background: #333;
       border-color: #444;
+      box-shadow: 0 2px 5px rgba(255,255,255,0.1);
+    }
+    .search-result-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    body.dark-mode .search-result-card:hover {
+      box-shadow: 0 4px 10px rgba(255,255,255,0.15);
+    }
+    .search-result-card img {
+      width: 100px;
+      height: 150px;
+      object-fit: cover;
+      margin-right: 15px;
+      border-radius: 3px;
+    }
+    .search-result-card .card-content {
+      flex: 1;
+    }
+    .search-result-card h3 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 18px;
+      margin: 0 0 8px;
+      color: #333;
+    }
+    body.dark-mode .search-result-card h3 {
       color: #e0e0e0;
     }
-    /* Footer */
-    .footer {
-      background: #333;
-      color: #fff;
-      text-align: center;
-      padding: 20px;
+    .search-result-card p {
       font-size: 14px;
+      color: #666;
+      margin: 0 0 5px;
     }
-    .footer a {
+    body.dark-mode .search-result-card p {
+      color: #bbb;
+    }
+    .search-result-card a {
       color: #007bff;
       text-decoration: none;
     }
-    .footer a:hover {
+    .search-result-card a:hover {
       text-decoration: underline;
     }
     /* Responsive Design */
-    @media (max-width: 1024px) {
-      .container { padding: 15px; }
-      .sidebar { width: 280px; }
-    }
     @media (max-width: 768px) {
+      .series-detail { flex-direction: column; }
+      .series-detail img { width: 100%; height: auto; margin-bottom: 15px; }
       .container { flex-direction: column; }
-      .main-content, .sidebar {
-        width: 100%;
-        margin-bottom: 20px;
-      }
-      .post-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      }
-      .navbar .nav-container {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .navbar ul {
-        flex-direction: column;
-        width: 100%;
-      }
-      .navbar ul li {
-        margin: 10px 0;
-      }
-      .navbar ul li.dropdown:hover .dropdown-content {
-        position: static;
-        box-shadow: none;
-      }
-      .dark-mode-toggle {
-        margin-top: 10px;
-      }
-      .header {
-        flex-direction: column;
-        align-items: center;
-      }
-      .header h1 {
-        margin: 10px 0;
-      }
-      .header .search-bar {
-        width: 100%;
-        max-width: 300px;
-      }
+      .main-content, .sidebar { width: 100%; margin-bottom: 20px; }
+      .navbar { width: 150px; }
     }
     @media (max-width: 480px) {
-      .header h1 { font-size: 20px; }
-      .navbar ul li a { font-size: 14px; }
-      .post-card h2 { font-size: 14px; }
-      .post-card img { width: 80px; height: 120px; }
-      .pagination a, .pagination span { padding: 6px 10px; font-size: 12px; }
+      .header .logo { font-size: 20px; }
+      .header .nav-toggle i { font-size: 20px; }
+      .header .controls .dark-mode-toggle i,
+      .header .controls .search-btn i { font-size: 18px; }
+      .navbar { width: 120px; }
+      .series-detail h1 { font-size: 20px; }
+      .series-detail .synopsis { font-size: 14px; }
+      .chapter-content h1 { font-size: 20px; }
+      .chapter-content .chapter-body { font-size: 14px; }
+      .search-result-card img { width: 80px; height: 120px; }
+      .search-result-card h3 { font-size: 16px; }
     }
-    /* Lazy Load Images */
-    img[data-src] {
-      filter: blur(5px);
-      transition: filter 0.3s;
-    }
-    img[src] { filter: none; }
   ]]></b:skin>
 </head>
 <body>
   <!-- Header -->
   <div class='header'>
-    <img alt='Logo Danmei Indonesia' class='logo' expr:src='data:blog.logo'/>
-    <h1><data:blog.title/></h1>
-    <form action='/search' class='search-bar' method='get'>
-      <input name='q' placeholder='Cari novel...' type='text'/>
-      <button type='submit'>Cari</button>
-    </form>
-  </div>
-  <!-- Navbar -->
-  <div class='navbar'>
-    <div class='nav-container'>
+    <button class='nav-toggle' onclick='toggleNavbar()'><i class="fas fa-bars"></i></button>
+    <div class='logo'>KOMIKA</div>
+    <div class='controls'>
+      <button class='dark-mode-toggle' onclick='toggleDarkMode()'><i class="fas fa-cog"></i></button>
+      <button class='search-btn' onclick='toggleSearch()'><i class="fas fa-search"></i></button>
+    </div>
+    <div class='navbar' id='navbar'>
       <ul>
         <li><a expr:href='data:blog.homepageUrl'>Beranda</a></li>
         <li class='dropdown'>
           <a href='#'>Kategori Danmei</a>
           <div class='dropdown-content'>
-            <a href='/p/historical.html'>Historical</a>
-            <a href='/p/xianxia.html'>Xianxia</a>
-            <a href='/p/modern.html'>Modern</a>
+            <a href='/search/label/Historical'>Historical</a>
+            <a href='/search/label/Xianxia'>Xianxia</a>
+            <a href='/search/label/Modern'>Modern</a>
           </div>
         </li>
         <li><a href='/p/pencarian.html'>Pencarian</a></li>
+        <li><a href='/p/bookmarks.html'>Bookmarks</a></li>
         <li><a href='/p/tentang.html'>Tentang</a></li>
         <li><a href='/p/kontak.html'>Kontak</a></li>
       </ul>
-      <button class='dark-mode-toggle' onclick='toggleDarkMode()'>Toggle Dark Mode</button>
     </div>
   </div>
   <!-- Container -->
   <div class='container'>
     <div class='main-content'>
-      <!-- Genre Filter -->
-      <div class='genre-filter'>
-        <select onchange='if(this.value) window.location.href=this.value'>
-          <option value=''>Pilih Kategori Danmei</option>
-          <option value='/search/label/Historical'>Historical</option>
-          <option value='/search/label/Xianxia'>Xianxia</option>
-          <option value='/search/label/Modern'>Modern</option>
-        </select>
-      </div>
-      <!-- Blog Posts -->
       <b:section class='main' id='main' showaddelement='yes'>
         <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
           <b:includable id='main'>
-            <b:if cond='data:blog.pageType == "index" or data:blog.pageType == "archive"'>
-              <!-- Daftar Posting -->
+            <b:if cond='data:blog.url == data:blog.homepageUrl + "p/pencarian.html"'>
+              <!-- Halaman Pencarian Lanjutan -->
+              <div class='advanced-search'>
+                <h2>Pencarian Lanjutan</h2>
+                <form id='advancedSearchForm'>
+                  <div>
+                    <label for='searchTitle'>Judul:</label>
+                    <input type='text' id='searchTitle' placeholder='Masukkan judul...'/>
+                  </div>
+                  <div>
+                    <label for='searchGenre'>Genre:</label>
+                    <select id='searchGenre'>
+                      <option value=''>Semua Genre</option>
+                      <option value='Historical'>Historical</option>
+                      <option value='Xianxia'>Xianxia</option>
+                      <option value='Modern'>Modern</option>
+                      <option value='Romance'>Romance</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for='searchStatus'>Status:</label>
+                    <select id='searchStatus'>
+                      <option value=''>Semua Status</option>
+                      <option value='Ongoing'>Ongoing</option>
+                      <option value='Completed'>Completed</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for='searchYear'>Tahun Rilis:</label>
+                    <select id='searchYear'>
+                      <option value=''>Semua Tahun</option>
+                      <option value='2025'>2025</option>
+                      <option value='2024'>2024</option>
+                      <option value='2023'>2023</option>
+                    </select>
+                  </div>
+                  <button type='submit'>Cari</button>
+                </form>
+              </div>
+              <div class='search-results' id='searchResults'>
+                <!-- Hasil pencarian akan ditampilkan di sini -->
+              </div>
+            <b:elseif cond='data:blog.url == data:blog.homepageUrl + "p/bookmarks.html"'>
+              <!-- Halaman Bookmarks -->
+              <div class='section-title'>Bookmarks</div>
+              <div class='bookmark-grid' id='bookmarkGrid'></div>
+            <b:elseif cond='data:blog.pageType == "item" and data:blog.labels any (l => l.name startsWith "Chapter ")'>
+              <!-- Halaman Chapter -->
+              <div class='chapter-content'>
+                <h1><data:blog.postTitle/></h1>
+                <div class='chapter-navigation'>
+                  <a id='prevChapter' href='#' class='disabled'>Previous Chapter</a>
+                  <select id='chapterSelect' onchange='window.location.href=this.value'>
+                    <!-- Options will be populated by JavaScript -->
+                  </select>
+                  <a id='nextChapter' href='#' class='disabled'>Next Chapter</a>
+                </div>
+                <div class='chapter-body'>
+                  <data:post.body/>
+                </div>
+              </div>
+              <!-- Related Stories -->
+              <div class='related-stories'>
+                <h2>Related Stories</h2>
+                <div class='related-grid'>
+                  <b:loop values='data:posts' var='post' index='i'>
+                    <b:if cond='data:i < 3'>
+                      <div class='related-card'>
+                        <b:if cond='data:post.thumbnail'>
+                          <img expr:alt='data:post.title' expr:src='data:post.thumbnail'/>
+                        <b:else/>
+                          <img alt='No Image' src='URL_GAMBAR_DEFAULT'/>
+                        </b:if>
+                        <a expr:href='data:post.url'><data:post.title/></a>
+                      </div>
+                    </b:if>
+                  </b:loop>
+                </div>
+              </div>
+              <!-- Reading and Bookmark Buttons -->
+              <div class='action-buttons'>
+                <button class='reading-btn' expr:data-post-id='data:post.id' expr:data-post-title='data:post.title' expr:data-post-url='data:post.url' expr:data-post-image='data:post.thumbnail ? data:post.thumbnail : "URL_GAMBAR_DEFAULT"' onclick='toggleReading(this)'>Add to Reading</button>
+                <button class='bookmark-btn' expr:data-post-id='data:post.id' expr:data-post-title='data:post.title' expr:data-post-url='data:post.url' expr:data-post-image='data:post.thumbnail ? data:post.thumbnail : "URL_GAMBAR_DEFAULT"' onclick='toggleBookmark(this)'>Bookmark</button>
+              </div>
+              <!-- Disqus Comments -->
+              <div class='comments-section'>
+                <h2>Latest Comments</h2>
+                <div id='disqus_thread'/>
+              </div>
+            <b:elseif cond='data:blog.pageType == "item"'/>
+              <!-- Detail Series -->
+              <div class='series-detail'>
+                <b:if cond='data:post.thumbnail'>
+                  <img expr:alt='data:post.title' expr:src='data:post.thumbnail'/>
+                <b:else/>
+                  <img alt='No Image' src='URL_GAMBAR_DEFAULT'/>
+                </b:if>
+                <div class='content'>
+                  <h1><data:blog.postTitle/></h1>
+                  <div class='genre'>Historical · Romance</div>
+                  <div class='synopsis'><data:post.body/></div>
+                  <div class='stats'>30 Chapters · 76.1K · May 8, '25 · Ongoing</div>
+                  <a class='donate-btn' href='https://www.buymeacoffee.com' target='_blank'>Buy me a coffee</a>
+                </div>
+              </div>
+              <!-- Related Stories -->
+              <div class='related-stories'>
+                <h2>Related Stories</h2>
+                <div class='related-grid'>
+                  <b:loop values='data:posts' var='post' index='i'>
+                    <b:if cond='data:i < 3'>
+                      <div class='related-card'>
+                        <b:if cond='data:post.thumbnail'>
+                          <img expr:alt='data:post.title' expr:src='data:post.thumbnail'/>
+                        <b:else/>
+                          <img alt='No Image' src='URL_GAMBAR_DEFAULT'/>
+                        </b:if>
+                        <a expr:href='data:post.url'><data:post.title/></a>
+                      </div>
+                    </b:if>
+                  </b:loop>
+                </div>
+              </div>
+              <!-- Reading and Bookmark Buttons -->
+              <div class='action-buttons'>
+                <button class='reading-btn' expr:data-post-id='data:post.id' expr:data-post-title='data:post.title' expr:data-post-url='data:post.url' expr:data-post-image='data:post.thumbnail ? data:post.thumbnail : "URL_GAMBAR_DEFAULT"' onclick='toggleReading(this)'>Add to Reading</button>
+                <button class='bookmark-btn' expr:data-post-id='data:post.id' expr:data-post-title='data:post.title' expr:data-post-url='data:post.url' expr:data-post-image='data:post.thumbnail ? data:post.thumbnail : "URL_GAMBAR_DEFAULT"' onclick='toggleBookmark(this)'>Bookmark</button>
+              </div>
+              <!-- Reading History -->
+              <div class='reading-history' id='readingHistory'>
+                <h2>Reading History</h2>
+                <p id='lastReadChapter'>Belum ada chapter yang dibaca.</p>
+              </div>
+              <!-- Chapter List -->
+              <div class='chapter-list'>
+                <h2>30 Chapters</h2>
+                <ul>
+                  <b:loop values='data:post.labels' var='label'>
+                    <li><a expr:href='data:label.url' expr:data-chapter-name='"Chapter " + data:label.name + " - 1,290 Words"' expr:data-post-id='data:post.id' expr:data-post-title='data:post.title' expr:data-post-url='data:post.url' onclick='updateReadingHistory(this)'>Chapter <data:label.name/> - 1,290 Words</a></li>
+                  </b:loop>
+                  <li><a class='show-more' href='#'>Show more</a></li>
+                </ul>
+              </div>
+              <!-- Disqus Comments -->
+              <div class='comments-section'>
+                <h2>Latest Comments</h2>
+                <div id='disqus_thread'/>
+              </div>
+            <b:else/>
+              <!-- Daftar Posting (untuk halaman utama) -->
+              <div class='section-title'>NEW SERIES</div>
               <div class='post-grid'>
                 <b:loop values='data:posts' var='post'>
                   <div class='post-card'>
@@ -536,14 +856,18 @@
                     <b:else/>
                       <img alt='No Image' data-src='URL_GAMBAR_DEFAULT'/>
                     </b:if>
-                    <h2><a expr:href='data:post.url' expr:title='data:post.title'><data:post.title/></a></h2>
-                    <p><b>Kategori:</b> <b:loop values='data:post.labels' var='label'><a expr:href='data:label.url'><data:label.name/></a><b:if cond='data:label.isLast != "true"'>, </b:if></b:loop></p>
-                    <p><data:post.snippet/></p>
-                    <a class='read-more' expr:href='data:post.url'>Baca Selengkapnya</a>
+                    <div class='card-content'>
+                      <h2><a expr:href='data:post.url' expr:title='data:post.title'><data:post.title/></a></h2>
+                      <p><data:post.snippet/></p>
+                      <div class='stats'>
+                        <span><b:loop values='data:post.labels' var='label'><a expr:href='data:label.url'><data:label.name/></a><b:if cond='data:label.isLast != "true"'>, </b:if></b:loop></span>
+                        <span>31 · 76.0K · May 14, '25 · Ongoing</span>
+                        <a class='extra-btn' href='#'>E</a>
+                      </div>
+                    </div>
                   </div>
                 </b:loop>
               </div>
-              <!-- Pagination -->
               <div class='pagination'>
                 <b:if cond='data:olderPageUrl'>
                   <a expr:href='data:olderPageUrl'>Sebelumnya</a>
@@ -552,21 +876,6 @@
                 <b:if cond='data:newerPageUrl'>
                   <a expr:href='data:newerPageUrl'>Berikutnya</a>
                 </b:if>
-              </div>
-            <b:else/>
-              <!-- Halaman Posting Tunggal -->
-              <div class='post-body'>
-                <h2><data:blog.postTitle/></h2>
-                <p><b>Kategori:</b> <b:loop values='data:blog.labels' var='label'><a expr:href='data:label.url'><data:label.name/></a><b:if cond='data:label.isLast != "true"'>, </b:if></b:loop></p>
-                <data:blog.postContent/>
-                <div class='post-nav'>
-                  <b:if cond='data:blog.prevPost'>
-                    <a expr:href='data:blog.prevPost.url'>« Bab Sebelumnya</a>
-                  </b:if>
-                  <b:if cond='data:blog.nextPost'>
-                    <a expr:href='data:blog.nextPost.url'>Bab Berikutnya »</a>
-                  </b:if>
-                </div>
               </div>
             </b:if>
           </b:includable>
@@ -588,7 +897,7 @@
     </p>
   </div>
   <!-- Scripts -->
-  <script>
+  <script><![CDATA[
     // Dark Mode Toggle
     function toggleDarkMode() {
       document.body.classList.toggle('dark-mode');
@@ -597,6 +906,16 @@
     // Load Dark Mode Preference
     if (localStorage.getItem('darkMode') === 'true') {
       document.body.classList.add('dark-mode');
+    }
+    // Toggle Navbar
+    function toggleNavbar() {
+      const navbar = document.getElementById('navbar');
+      navbar.classList.toggle('active');
+    }
+    // Toggle Search (Placeholder - Anda bisa tambahkan logika pencarian sederhana)
+    function toggleSearch() {
+      alert('Fitur pencarian akan ditambahkan di sini. Saat ini hanya placeholder.');
+      // Tambahkan logika pencarian jika diperlukan
     }
     // Lazy Load Images
     document.addEventListener('DOMContentLoaded', function() {
@@ -613,6 +932,256 @@
       });
       images.forEach(img => observer.observe(img));
     });
-  </script>
+    // Disqus Configuration
+    var disqus_config = function () {
+      this.page.url = '<data:blog.canonicalUrl/>';
+      this.page.identifier = '<data:blog.postId/>';
+      this.page.title = '<data:blog.pageTitle/>';
+    };
+    (function() {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://eltestyu.disqus.com/embed.js'; // Ganti 'eltestyu' dengan shortname Anda
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+    // Bookmark Functionality
+    function toggleBookmark(button) {
+      const postId = button.getAttribute('data-post-id');
+      const postTitle = button.getAttribute('data-post-title');
+      const postUrl = button.getAttribute('data-post-url');
+      const postImage = button.getAttribute('data-post-image');
+      let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+      const bookmarkIndex = bookmarks.findIndex(b => b.id === postId);
+      if (bookmarkIndex === -1) {
+        if (bookmarks.length >= 100) {
+          alert('Batas bookmark 100 series telah tercapai. Hapus beberapa series untuk menambahkan yang baru.');
+          return;
+        }
+        bookmarks.push({ id: postId, title: postTitle, url: postUrl, image: postImage });
+        button.textContent = 'Bookmarked';
+        button.classList.add('bookmarked');
+      } else {
+        bookmarks.splice(bookmarkIndex, 1);
+        button.textContent = 'Bookmark';
+        button.classList.remove('bookmarked');
+      }
+      localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    }
+    // Load Bookmark State on Page Load
+    document.addEventListener('DOMContentLoaded', function() {
+      const bookmarkButtons = document.querySelectorAll('.bookmark-btn');
+      bookmarkButtons.forEach(button => {
+        const postId = button.getAttribute('data-post-id');
+        const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+        if (bookmarks.some(b => b.id === postId)) {
+          button.textContent = 'Bookmarked';
+          button.classList.add('bookmarked');
+        }
+      });
+    });
+    // Display Bookmarks on Bookmark Page
+    if (window.location.href.includes('/p/bookmarks.html')) {
+      document.addEventListener('DOMContentLoaded', function() {
+        const bookmarkGrid = document.getElementById('bookmarkGrid');
+        const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+        if (bookmarks.length === 0) {
+          bookmarkGrid.innerHTML = '<p>Tidak ada series yang di-bookmark.</p>';
+        } else {
+          bookmarks.forEach(bookmark => {
+            const card = document.createElement('div');
+            card.className = 'bookmark-card';
+            card.innerHTML = `
+              <img src="${bookmark.image}" alt="${bookmark.title}"/>
+              <div class="card-content">
+                <h2><a href="${bookmark.url}">${bookmark.title}</a></h2>
+                <button class="remove-btn" onclick="removeBookmark('${bookmark.id}')">Hapus</button>
+              </div>
+            `;
+            bookmarkGrid.appendChild(card);
+          });
+        }
+      });
+    }
+    function removeBookmark(postId) {
+      let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+      bookmarks = bookmarks.filter(b => b.id !== postId);
+      localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+      location.reload();
+    }
+    // Reading Functionality
+    function toggleReading(button) {
+      const postId = button.getAttribute('data-post-id');
+      const postTitle = button.getAttribute('data-post-title');
+      const postUrl = button.getAttribute('data-post-url');
+      const postImage = button.getAttribute('data-post-image');
+      let readingList = JSON.parse(localStorage.getItem('readingList')) || [];
+      const readingIndex = readingList.findIndex(r => r.id === postId);
+      if (readingIndex === -1) {
+        readingList.push({ id: postId, title: postTitle, url: postUrl, image: postImage });
+        button.textContent = 'Reading';
+        button.classList.add('reading');
+      } else {
+        readingList.splice(readingIndex, 1);
+        button.textContent = 'Add to Reading';
+        button.classList.remove('reading');
+      }
+      localStorage.setItem('readingList', JSON.stringify(readingList));
+    }
+    // Load Reading State on Page Load
+    document.addEventListener('DOMContentLoaded', function() {
+      const readingButtons = document.querySelectorAll('.reading-btn');
+      readingButtons.forEach(button => {
+        const postId = button.getAttribute('data-post-id');
+        const readingList = JSON.parse(localStorage.getItem('readingList')) || [];
+        if (readingList.some(r => r.id === postId)) {
+          button.textContent = 'Reading';
+          button.classList.add('reading');
+        }
+      });
+    });
+    // Reading History Functionality
+    function updateReadingHistory(link) {
+      const postId = link.getAttribute('data-post-id');
+      const postTitle = link.getAttribute('data-post-title');
+      const postUrl = link.getAttribute('data-post-url');
+      const chapterName = link.getAttribute('data-chapter-name');
+      const chapterUrl = link.href;
+      let readingHistory = JSON.parse(localStorage.getItem('readingHistory')) || {};
+      readingHistory[postId] = {
+        title: postTitle,
+        url: postUrl,
+        lastChapter: chapterName,
+        chapterUrl: chapterUrl,
+        timestamp: new Date().toISOString()
+      };
+      localStorage.setItem('readingHistory', JSON.stringify(readingHistory));
+    }
+    // Display Reading History on Page Load
+    document.addEventListener('DOMContentLoaded', function() {
+      const readingHistoryDiv = document.getElementById('readingHistory');
+      const lastReadChapterP = document.getElementById('lastReadChapter');
+      if (readingHistoryDiv && lastReadChapterP) {
+        const postId = '<data:post.id/>';
+        const readingHistory = JSON.parse(localStorage.getItem('readingHistory')) || {};
+        if (readingHistory[postId]) {
+          const history = readingHistory[postId];
+          lastReadChapterP.innerHTML = `Terakhir dibaca: <a href="${history.chapterUrl}">${history.lastChapter}</a> pada ${new Date(history.timestamp).toLocaleString()}`;
+        }
+      }
+    });
+    // Chapter Navigation
+    document.addEventListener('DOMContentLoaded', function() {
+      const chapters = [];
+      let currentChapter = 0;
+      const postTitle = '<data:blog.postTitle/>';
+      const chapterMatch = postTitle.match(/Chapter (\d+)/);
+      if (chapterMatch) {
+        currentChapter = parseInt(chapterMatch[1]);
+      }
+      const chapterSelect = document.getElementById('chapterSelect');
+      if (chapterSelect) {
+        for (let i = 1; i <= 30; i++) {
+          const option = document.createElement('option');
+          option.value = `/p/chapter-${i}.html`;
+          option.text = `Chapter ${i}`;
+          if (i === currentChapter) {
+            option.selected = true;
+          }
+          chapterSelect.appendChild(option);
+          chapters.push({ number: i, url: `/p/chapter-${i}.html` });
+        }
+        const prevChapterLink = document.getElementById('prevChapter');
+        const nextChapterLink = document.getElementById('nextChapter');
+        if (currentChapter > 1) {
+          prevChapterLink.href = chapters[currentChapter - 2].url;
+          prevChapterLink.classList.remove('disabled');
+        }
+        if (currentChapter < chapters.length) {
+          nextChapterLink.href = chapters[currentChapter].url;
+          nextChapterLink.classList.remove('disabled');
+        }
+      }
+      const chapterData = {
+        getAttribute: function(attr) {
+          if (attr === 'data-post-id') return '<data:post.id/>';
+          if (attr === 'data-post-title') return '<data:blog.postTitle/>';
+          if (attr === 'data-post-url') return '<data:blog.canonicalUrl/>';
+          if (attr === 'data-chapter-name') return `Chapter ${currentChapter} - 1,290 Words`;
+          if (attr === 'href') return window.location.href;
+          return '';
+        }
+      };
+      updateReadingHistory(chapterData);
+    });
+    // Advanced Search Functionality
+    if (window.location.href.includes('/p/pencarian.html')) {
+      document.addEventListener('DOMContentLoaded', function() {
+        const searchForm = document.getElementById('advancedSearchForm');
+        const searchResults = document.getElementById('searchResults');
+        fetch('<data:blog.homepageUrl/>/feeds/posts/default?alt=json&max-results=999')
+          .then(response => response.json())
+          .then(data => {
+            const posts = data.feed.entry || [];
+            const processedPosts = posts.map(post => {
+              const title = post.title.$t;
+              const url = post.link.find(link => link.rel === 'alternate').href;
+              const thumbnail = post.media$thumbnail ? post.media$thumbnail.url : 'URL_GAMBAR_DEFAULT';
+              const labels = post.category ? post.category.map(cat => cat.term) : [];
+              const published = new Date(post.published.$t);
+              const year = published.getFullYear().toString();
+              const status = labels.includes('Completed') ? 'Completed' : 'Ongoing';
+              const chapterCount = labels.filter(label => label.startsWith('Chapter')).length || 30;
+              return {
+                title,
+                url,
+                thumbnail,
+                genres: labels.filter(label => ['Historical', 'Xianxia', 'Modern', 'Romance'].includes(label)),
+                status,
+                year,
+                chapterCount
+              };
+            });
+            searchForm.addEventListener('submit', function(e) {
+              e.preventDefault();
+              const titleQuery = document.getElementById('searchTitle').value.toLowerCase();
+              const genreQuery = document.getElementById('searchGenre').value;
+              const statusQuery = document.getElementById('searchStatus').value;
+              const yearQuery = document.getElementById('searchYear').value;
+              const filteredPosts = processedPosts.filter(post => {
+                const matchesTitle = titleQuery ? post.title.toLowerCase().includes(titleQuery) : true;
+                const matchesGenre = genreQuery ? post.genres.includes(genreQuery) : true;
+                const matchesStatus = statusQuery ? post.status === statusQuery : true;
+                const matchesYear = yearQuery ? post.year === yearQuery : true;
+                return matchesTitle && matchesGenre && matchesStatus && matchesYear;
+              });
+              searchResults.innerHTML = '';
+              if (filteredPosts.length === 0) {
+                searchResults.innerHTML = '<p>Tidak ada hasil yang ditemukan.</p>';
+              } else {
+                filteredPosts.forEach(post => {
+                  const card = document.createElement('div');
+                  card.className = 'search-result-card';
+                  card.innerHTML = `
+                    <img src="${post.thumbnail}" alt="${post.title}"/>
+                    <div class="card-content">
+                      <h3><a href="${post.url}">${post.title}</a></h3>
+                      <p>Genre: ${post.genres.join(', ') || 'Tidak ada'}</p>
+                      <p>Status: ${post.status}</p>
+                      <p>Tahun: ${post.year}</p>
+                      <p>Chapters: ${post.chapterCount}</p>
+                    </div>
+                  `;
+                  searchResults.appendChild(card);
+                });
+              }
+            });
+          })
+          .catch(error => {
+            console.error('Error fetching posts:', error);
+            searchResults.innerHTML = '<p>Terjadi kesalahan saat memuat data. Silakan coba lagi.</p>';
+          });
+      });
+    }
+  ]]></script>
 </body>
 </html>
