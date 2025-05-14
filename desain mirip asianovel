@@ -12,7 +12,6 @@
   <!-- Open Graph -->
   <meta expr:content='data:blog.pageTitle' property='og:title'/>
   <meta expr:content='data:blog.metaDescription' property='og:description'/>
-  <!-- Fixed Open Graph Image Meta Tag -->
   <b:if cond='data:post.thumbnail'>
     <meta expr:content='data:post.thumbnail' property='og:image'/>
   <b:else/>
@@ -53,8 +52,8 @@
   </script>
   <!-- Favicon -->
   <link expr:href='data:blog.favicon' rel='icon' type='image/x-icon'/>
-  <!-- Google Fonts -->
-  <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap' rel='stylesheet'/>
+  <!-- Google Fonts (Fixed: Escaped ampersands) -->
+  <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;family=Open+Sans:wght@400;600&amp;display=swap' rel='stylesheet'/>
   <!-- Font Awesome untuk ikon -->
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'/>
   <!-- CSS -->
@@ -900,7 +899,7 @@
     <p>
       <a href='/p/kontak.html'>Kontak</a> |
       <a href='/p/kebijakan-privasi.html'>Kebijakan Privasi</a> |
-      <a href='/p/tos.html'>Syarat & Ketentuan</a>
+      <a href='/p/tos.html'>Syarat &amp; Ketentuan</a>
     </p>
   </div>
   <!-- Scripts -->
