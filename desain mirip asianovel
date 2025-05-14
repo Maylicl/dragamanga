@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:version='2' class='v2' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+  <!-- Meta Tags untuk SEO -->
+  <meta charset='UTF-8'/>
+  <meta content='width=device-width, initial-scale=1.0' name='viewport'/>
+  <meta expr:content='"Baca novel orisinal Romance, BL, Fantasy di " + data:blog.title' name='description'/>
+  <meta content='novel, novel orisinal, romance, bl, fantasy, fiksi, terjemahan, asia' name='keywords'/>
+  <meta content='Nama Anda' name='author'/>
+  <meta content='index, follow' name='robots'/>
+  <!-- Open Graph -->
+  <meta expr:content='data:blog.pageTitle' property='og:title'/>
+  <meta content='Baca novel orisinal dalam genre Romance, BL, dan Fantasy.' property='og:description'/>
+  <meta content='URL_GAMBAR_DEFAULT' property='og:image'/>
+  <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
+  <meta content='website' property='og:type'/>
+  <!-- Twitter Card -->
+  <meta content='summary_large_image' name='twitter:card'/>
+  <meta expr:content='data:blog.pageTitle' name='twitter:title'/>
+  <meta content='Baca novel orisinal dalam genre Romance, BL, dan Fantasy.' name='twitter:description'/>
+  <meta content='URL_GAMBAR_DEFAULT' name='twitter:image'/>
+  <!-- Schema Markup -->
+  <script type='application/ld+json'>
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "<data:blog.title/>",
+      "url": "<data:blog.canonicalUrl/>",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "<data:blog.homepageUrl/>search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
+  <!-- Favicon -->
+  <link expr:href='data:blog.favicon' rel='icon' type='image/x-icon'/>
+  <!-- Google Fonts -->
+  <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap' rel='stylesheet'/>
+  <!-- CSS -->
+  <b:skin><![CDATA[
+    /* Reset CSS */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+      font-size: 16px;
+      transition: background 0.3s, color 0.3s;
+    }
+    body.dark-mode {
+      background: #1a1a1a;
+      color: #e0e0e0;
+    }
+    /* Header */
+    .header {
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    .header img.logo {
+      max-width: 150px;
+      height: auto;
+    }
+    .header h1 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 28px;
+      margin: 10px 0;
+    }
+    /* Navbar */
+    .navbar {
+      background: #444;
+      padding: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .navbar ul {
+      list-style: none;
+      text-align: center;
+    }
+    .navbar ul li {
+      display: inline-block;
+      position: relative;
+      margin: 0 15px;
+    }
+    .navbar ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+    .navbar ul li a:hover {
+      color: #007bff;
+    }
+    /* Dropdown Menu */
+    .navbar ul li.dropdown:hover .dropdown-content {
+      display: block;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background: #444;
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+      border-radius: 5px;
+    }
+    .dropdown-content a {
+      color: #fff;
+      padding: 12px 16px;
+      display: block;
+      text-align: left;
+      font-size: 14px;
+    }
+    .dropdown-content a:hover {
+      background: #555;
+      color: #007bff;
+    }
+    /* Dark Mode Toggle */
+    .dark-mode-toggle {
+      float: right;
+      padding: 8px 12px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .dark-mode-toggle:hover {
+      background: #0056b3;
+    }
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      overflow: hidden;
+    }
+    .main-content {
+      float: left;
+      width: 68%;
+      background: #fff;
+      padding: 25px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    body.dark-mode .main-content {
+      background: #2a2a2a;
+      box-shadow: 0 2px 5px rgba(255,255,255,0.1);
+    }
+    .sidebar {
+      float: right;
+      width: 28%;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-radius: 5px;
+    }
+    body.dark-mode .sidebar {
+      background: #2a2a2a;
+      box-shadow: 0 2px 5px rgba(255,255,255,0.1);
+    }
+    /* Post Card */
+    .post-card {
+      display: flex;
+      background: #fff;
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    body.dark-mode .post-card {
+      background: #333;
+      border-color: #444;
+    }
+    .post-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    body.dark-mode .post-card:hover {
+      box-shadow: 0 4px 10px rgba(255,255,255,0.15);
+    }
+    .post-card img {
+      width: 100px;
+      height: 150px;
+      object-fit: cover;
+      margin-right: 15px;
+      border-radius: 3px;
+    }
+    .post-card h2 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 18px;
+      margin: 0 0 10px;
+      line-height: 1.4;
+    }
+    .post-card p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    body.dark-mode .post-card p {
+      color: #bbb;
+    }
+    .post-card a.read-more {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .post-card a.read-more:hover {
+      text-decoration: underline;
+    }
+    /* Post Content */
+    .post-body {
+      margin: 20px 0;
+    }
+    .post-body h2 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+    .post-body h3 {
+      font-size: 18px;
+      margin: 15px 0 10px;
+    }
+    .post-body p {
+      margin-bottom: 15px;
+    }
+    .post-body img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+    .post-nav {
+      margin: 20px 0;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .post-nav a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .post-nav a:hover {
+      text-decoration: underline;
+    }
+    /* Pagination */
+    .pagination {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .pagination a {
+      display: inline-block;
+      padding: 8px 12px;
+      margin: 0 5px;
+      background: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 3px;
+      font-size: 14px;
+    }
+    .pagination a:hover {
+      background: #0056b3;
+    }
+    .pagination span {
+      display: inline-block;
+      padding: 8px 12px;
+      margin: 0 5px;
+      background: #ddd;
+      color: #333;
+      border-radius: 3px;
+      font-size: 14px;
+    }
+    /* Sidebar Widgets */
+    .widget {
+      margin-bottom: 25px;
+    }
+    .widget h3 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 16px;
+      margin-bottom: 10px;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 5px;
+    }
+    .widget ul {
+      list-style: none;
+    }
+    .widget ul li {
+      margin-bottom: 10px;
+    }
+    .widget ul li a {
+      color: #333;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    body.dark-mode .widget ul li a {
+      color: #e0e0e0;
+    }
+    .widget ul li a:hover {
+      color: #007bff;
+    }
+    .widget .search-form {
+      display: flex;
+    }
+    .widget .search-form input[type="text"] {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 3px 0 0 3px;
+      font-size: 14px;
+    }
+    body.dark-mode .widget .search-form input[type="text"] {
+      background: #333;
+      border-color: #444;
+      color: #e0e0e0;
+    }
+    .widget .search-form button {
+      padding: 8px 12px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 0 3px 3px 0;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .widget .search-form button:hover {
+      background: #0056b3;
+    }
+    /* Genre Filter */
+    .genre-filter {
+      margin-bottom: 20px;
+    }
+    .genre-filter select {
+      padding: 8px;
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      font-size: 14px;
+    }
+    body.dark-mode .genre-filter select {
+      background: #333;
+      border-color: #444;
+      color: #e0e0e0;
+    }
+    /* Footer */
+    .footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      clear: both;
+      font-size: 14px;
+    }
+    .footer a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .main-content { width: 65%; }
+      .sidebar { width: 30%; }
+    }
+    @media (max-width: 768px) {
+      .main-content, .sidebar {
+        float: none;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      .post-card {
+        flex-direction: column;
+      }
+      .post-card img {
+        width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+      }
+      .navbar ul li {
+        display: block;
+        margin: 10px 0;
+      }
+      .navbar ul li.dropdown:hover .dropdown-content {
+        position: static;
+        box-shadow: none;
+      }
+      .dark-mode-toggle {
+        float: none;
+        display: block;
+        margin: 10px auto;
+      }
+    }
+    @media (max-width: 480px) {
+      .header h1 { font-size: 24px; }
+      .navbar ul li a { font-size: 14px; }
+      .post-card h2 { font-size: 16px; }
+      .pagination a, .pagination span { padding: 6px 10px; font-size: 12px; }
+    }
+    /* Lazy Load Images */
+    img[data-src] {
+      filter: blur(5px);
+      transition: filter 0.3s;
+    }
+    img[src] { filter: none; }
+  ]]></b:skin>
+</head>
+<body>
+  <!-- Header -->
+  <div class='header'>
+    <img alt='Logo Novel Inspirasi Asia' class='logo' expr:src='data:blog.logo'/>
+    <h1><data:blog.title/></h1>
+  </div>
+  <!-- Navbar -->
+  <div class='navbar'>
+    <ul>
+      <li><a expr:href='data:blog.homepageUrl'>Beranda</a></li>
+      <li class='dropdown'>
+        <a href='#'>Genre</a>
+        <div class='dropdown-content'>
+          <a href='/p/romance.html'>Romance</a>
+          <a href='/p/bl.html'>BL</a>
+          <a href='/p/fantasy.html'>Fantasy</a>
+        </div>
+      </li>
+      <li><a href='/p/pencarian.html'>Pencarian</a></li>
+      <li><a href='/p/tentang.html'>Tentang</a></li>
+      <li><a href='/p/kontak.html'>Kontak</a></li>
+    </ul>
+    <button class='dark-mode-toggle' onclick='toggleDarkMode()'>Toggle Dark Mode</button>
+  </div>
+  <!-- Container -->
+  <div class='container'>
+    <div class='main-content'>
+      <!-- Genre Filter -->
+      <div class='genre-filter'>
+        <select onchange='if(this.value) window.location.href=this.value'>
+          <option value=''>Pilih Genre</option>
+          <option value='/search/label/Romance'>Romance</option>
+          <option value='/search/label/BL'>BL</option>
+          <option value='/search/label/Fantasy'>Fantasy</option>
+        </select>
+      </div>
+      <!-- Blog Posts -->
+      <b:section class='main' id='main' showaddelement='yes'>
+        <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
+          <b:includable id='main'>
+            <b:if cond='data:blog.pageType == "index" or data:blog.pageType == "archive"'>
+              <!-- Daftar Posting -->
+              <b:loop values='data:posts' var='post'>
+                <div class='post-card'>
+                  <b:if cond='data:post.thumbnail'>
+                    <img expr:alt='data:post.title' expr:data-src='data:post.thumbnail'/>
+                  <b:else/>
+                    <img alt='No Image' data-src='URL_GAMBAR_DEFAULT'/>
+                  </b:if>
+                  <div>
+                    <h2><a expr:href='data:post.url' expr:title='data:post.title'><data:post.title/></a></h2>
+                    <p><b>Genre:</b> <b:loop values='data:post.labels' var='label'><a expr:href='data:label.url'><data:label.name/></a><b:if cond='data:label.isLast != "true"'>, </b:if></b:loop></p>
+                    <p><data:post.snippet/></p>
+                    <a class='read-more' expr:href='data:post.url'>Baca Selengkapnya</a>
+                  </div>
+                </div>
+              </b:loop>
+              <!-- Pagination -->
+              <div class='pagination'>
+                <b:if cond='data:olderPageUrl'>
+                  <a expr:href='data:olderPageUrl'>Sebelumnya</a>
+                </b:if>
+                <span>Halaman <data:currentPage/> dari <data:numPages/></span>
+                <b:if cond='data:newerPageUrl'>
+                  <a expr:href='data:newerPageUrl'>Berikutnya</a>
+                </b:if>
+              </div>
+            <b:else/>
+              <!-- Halaman Posting Tunggal -->
+              <div class='post-body'>
+                <h2><data:blog.postTitle/></h2>
+                <p><b>Genre:</b> <b:loop values='data:blog.labels' var='label'><a expr:href='data:label.url'><data:label.name/></a><b:if cond='data:label.isLast != "true"'>, </b:if></b:loop></p>
+                <data:blog.postContent/>
+                <div class='post-nav'>
+                  <b:if cond='data:blog.prevPost'>
+                    <a expr:href='data:blog.prevPost.url'>« Bab Sebelumnya</a>
+                  </b:if>
+                  <b:if cond='data:blog.nextPost'>
+                    <a expr:href='data:blog.nextPost.url'>Bab Berikutnya »</a>
+                  </b:if>
+                </div>
+              </div>
+            </b:if>
+          </b:includable>
+        </b:widget>
+      </b:section>
+    </div>
+    <div class='sidebar'>
+      <b:section class='sidebar' id='sidebar' showaddelement='yes'/>
+    </div>
+  </div>
+  <!-- Footer -->
+  <div class='footer'>
+    <p>© <data:blog.title/> <script>document.write(new Date().getFullYear());</script>. All Rights Reserved.</p>
+    <p>Desain terinspirasi dari <a href='https://www.asianovel.net/'>Asianovel.net</a> dengan izin.</p>
+    <p>
+      <a href='/p/kontak.html'>Kontak</a> |
+      <a href='/p/kebijakan-privasi.html'>Kebijakan Privasi</a> |
+      <a href='/p/tos.html'>Syarat & Ketentuan</a>
+    </p>
+  </div>
+  <!-- Scripts -->
+  <script>
+    // Dark Mode Toggle
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    }
+    // Load Dark Mode Preference
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+    }
+    // Lazy Load Images
+    document.addEventListener('DOMContentLoaded', function() {
+      const images = document.querySelectorAll('img[data-src]');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+            observer.unobserve(img);
+          }
+        });
+      });
+      images.forEach(img => observer.observe(img));
+    });
+  </script>
+</body>
+</html>
