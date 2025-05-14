@@ -12,23 +12,30 @@
   <!-- Open Graph -->
   <meta expr:content='data:blog.pageTitle' property='og:title'/>
   <meta expr:content='data:blog.metaDescription' property='og:description'/>
-  <meta expr:content='data:post.thumbnail' property='og:image' expr:condition='data:post.thumbnail'/>
-  <meta content='URL_GAMBAR_DEFAULT' property='og:image' expr:condition='!data:post.thumbnail'/>
+  <!-- Fixed Open Graph Image Meta Tag -->
+  <b:if cond='data:post.thumbnail'>
+    <meta expr:content='data:post.thumbnail' property='og:image'/>
+  <b:else/>
+    <meta content='URL_GAMBAR_DEFAULT' property='og:image'/>
+  </b:if>
   <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
   <meta content='article' property='og:type'/>
   <!-- Twitter Card -->
   <meta content='summary_large_image' name='twitter:card'/>
   <meta expr:content='data:blog.pageTitle' name='twitter:title'/>
   <meta expr:content='data:blog.metaDescription' name='twitter:description'/>
-  <meta expr:content='data:post.thumbnail' name='twitter:image' expr:condition='data:post.thumbnail'/>
-  <meta content='URL_GAMBAR_DEFAULT' name='twitter:image' expr:condition='!data:post.thumbnail'/>
+  <b:if cond='data:post.thumbnail'>
+    <meta expr:content='data:post.thumbnail' name='twitter:image'/>
+  <b:else/>
+    <meta content='URL_GAMBAR_DEFAULT' name='twitter:image'/>
+  </b:if>
   <!-- Schema Markup -->
   <script type='application/ld+json'>
     {
       "@context": "https://schema.org",
       "@type": "Article",
       "headline": "<data:blog.pageTitle/>",
-      "image": "<data:post.thumbnail ? data:post.thumbnail : 'URL_GAMBAR_DEFAULT'/>",
+      "image": "<b:if cond='data:post.thumbnail'><data:post.thumbnail/><b:else/>URL_GAMBAR_DEFAULT</b:if>",
       "datePublished": "<data:post.timestampISO8601/>",
       "author": {
         "@type": "Person",
@@ -854,7 +861,7 @@
                     <b:if cond='data:post.thumbnail'>
                       <img expr:alt='data:post.title' expr:data-src='data:post.thumbnail'/>
                     <b:else/>
-                      <img alt='No Image' data-src='URL_GAMBAR_DEFAULT'/>
+                      <img alt='No Image' expr:data-src='"URL_GAMBAR_DEFAULT"'/>
                     </b:if>
                     <div class='card-content'>
                       <h2><a expr:href='data:post.url' expr:title='data:post.title'><data:post.title/></a></h2>
