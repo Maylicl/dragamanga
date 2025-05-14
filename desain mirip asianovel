@@ -5,20 +5,20 @@
   <!-- Meta Tags untuk SEO -->
   <meta charset='UTF-8'/>
   <meta content='width=device-width, initial-scale=1.0' name='viewport'/>
-  <meta expr:content='"Baca novel orisinal Romance, BL, Fantasy di " + data:blog.title' name='description'/>
-  <meta content='novel, novel orisinal, romance, bl, fantasy, fiksi, terjemahan, asia' name='keywords'/>
+  <meta expr:content='"Baca novel terjemahan danmei BL Tiongkok di " + data:blog.title' name='description'/>
+  <meta content='novel danmei, terjemahan danmei, BL Tiongkok, novel BL, romansa pria, fiksi Tiongkok' name='keywords'/>
   <meta content='Nama Anda' name='author'/>
   <meta content='index, follow' name='robots'/>
   <!-- Open Graph -->
   <meta expr:content='data:blog.pageTitle' property='og:title'/>
-  <meta content='Baca novel orisinal dalam genre Romance, BL, dan Fantasy.' property='og:description'/>
+  <meta content='Baca novel terjemahan danmei BL Tiongkok terbaik.' property='og:description'/>
   <meta content='URL_GAMBAR_DEFAULT' property='og:image'/>
   <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
   <meta content='website' property='og:type'/>
   <!-- Twitter Card -->
   <meta content='summary_large_image' name='twitter:card'/>
   <meta expr:content='data:blog.pageTitle' name='twitter:title'/>
-  <meta content='Baca novel orisinal dalam genre Romance, BL, dan Fantasy.' name='twitter:description'/>
+  <meta content='Baca novel terjemahan danmei BL Tiongkok terbaik.' name='twitter:description'/>
   <meta content='URL_GAMBAR_DEFAULT' name='twitter:image'/>
   <!-- Schema Markup -->
   <script type='application/ld+json'>
@@ -58,33 +58,75 @@
     .header {
       background: #333;
       color: #fff;
-      padding: 20px;
-      text-align: center;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
     }
-    .header img.logo {
+    .header .logo {
       max-width: 150px;
       height: auto;
     }
     .header h1 {
       font-family: 'Roboto', sans-serif;
-      font-size: 28px;
-      margin: 10px 0;
+      font-size: 24px;
+      margin: 0;
+      flex: 1;
+      text-align: center;
+    }
+    .header .search-bar {
+      display: flex;
+      align-items: center;
+    }
+    .header .search-bar input[type="text"] {
+      padding: 6px;
+      border: 1px solid #ddd;
+      border-radius: 3px 0 0 3px;
+      font-size: 14px;
+      background: #fff;
+      color: #333;
+    }
+    body.dark-mode .header .search-bar input[type="text"] {
+      background: #333;
+      border-color: #444;
+      color: #e0e0e0;
+    }
+    .header .search-bar button {
+      padding: 6px 10px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 0 3px 3px 0;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .header .search-bar button:hover {
+      background: #0056b3;
     }
     /* Navbar */
     .navbar {
       background: #444;
-      padding: 12px;
+      padding: 12px 20px;
       position: sticky;
       top: 0;
       z-index: 100;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
+    .navbar .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
     .navbar ul {
       list-style: none;
-      text-align: center;
+      margin: 0;
+      padding: 0;
+      display: flex;
     }
     .navbar ul li {
-      display: inline-block;
       position: relative;
       margin: 0 15px;
     }
@@ -111,6 +153,8 @@
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
       z-index: 1;
       border-radius: 5px;
+      top: 100%;
+      left: 0;
     }
     .dropdown-content a {
       color: #fff;
@@ -125,8 +169,7 @@
     }
     /* Dark Mode Toggle */
     .dark-mode-toggle {
-      float: right;
-      padding: 8px 12px;
+      padding: 6px 12px;
       background: #007bff;
       color: #fff;
       border: none;
@@ -142,24 +185,24 @@
       max-width: 1200px;
       margin: 0 auto;
       padding: 20px;
-      overflow: hidden;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
     }
     .main-content {
-      float: left;
-      width: 68%;
+      flex: 1;
+      min-width: 0;
       background: #fff;
       padding: 25px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       border-radius: 5px;
-      margin-bottom: 20px;
     }
     body.dark-mode .main-content {
       background: #2a2a2a;
       box-shadow: 0 2px 5px rgba(255,255,255,0.1);
     }
     .sidebar {
-      float: right;
-      width: 28%;
+      width: 300px;
       padding: 20px;
       background: #fff;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -169,15 +212,19 @@
       background: #2a2a2a;
       box-shadow: 0 2px 5px rgba(255,255,255,0.1);
     }
-    /* Post Card */
+    /* Post Grid */
+    .post-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
     .post-card {
-      display: flex;
       background: #fff;
-      margin-bottom: 20px;
       padding: 15px;
       border: 1px solid #ddd;
       border-radius: 5px;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-align: center;
     }
     body.dark-mode .post-card {
       background: #333;
@@ -194,19 +241,20 @@
       width: 100px;
       height: 150px;
       object-fit: cover;
-      margin-right: 15px;
+      margin: 0 auto 10px;
       border-radius: 3px;
+      display: block;
     }
     .post-card h2 {
       font-family: 'Roboto', sans-serif;
-      font-size: 18px;
-      margin: 0 0 10px;
+      font-size: 16px;
+      margin: 0 0 8px;
       line-height: 1.4;
     }
     .post-card p {
-      font-size: 14px;
+      font-size: 13px;
       color: #666;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     body.dark-mode .post-card p {
       color: #bbb;
@@ -215,10 +263,15 @@
       color: #007bff;
       text-decoration: none;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 13px;
+      display: inline-block;
+      padding: 5px 10px;
+      border: 1px solid #007bff;
+      border-radius: 3px;
     }
     .post-card a.read-more:hover {
-      text-decoration: underline;
+      background: #007bff;
+      color: #fff;
     }
     /* Post Content */
     .post-body {
@@ -359,7 +412,6 @@
       color: #fff;
       text-align: center;
       padding: 20px;
-      clear: both;
       font-size: 14px;
     }
     .footer a {
@@ -371,25 +423,27 @@
     }
     /* Responsive Design */
     @media (max-width: 1024px) {
-      .main-content { width: 65%; }
-      .sidebar { width: 30%; }
+      .container { padding: 15px; }
+      .sidebar { width: 280px; }
     }
     @media (max-width: 768px) {
+      .container { flex-direction: column; }
       .main-content, .sidebar {
-        float: none;
         width: 100%;
         margin-bottom: 20px;
       }
-      .post-card {
-        flex-direction: column;
+      .post-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       }
-      .post-card img {
+      .navbar .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .navbar ul {
+        flex-direction: column;
         width: 100%;
-        height: auto;
-        margin-bottom: 10px;
       }
       .navbar ul li {
-        display: block;
         margin: 10px 0;
       }
       .navbar ul li.dropdown:hover .dropdown-content {
@@ -397,15 +451,25 @@
         box-shadow: none;
       }
       .dark-mode-toggle {
-        float: none;
-        display: block;
-        margin: 10px auto;
+        margin-top: 10px;
+      }
+      .header {
+        flex-direction: column;
+        align-items: center;
+      }
+      .header h1 {
+        margin: 10px 0;
+      }
+      .header .search-bar {
+        width: 100%;
+        max-width: 300px;
       }
     }
     @media (max-width: 480px) {
-      .header h1 { font-size: 24px; }
+      .header h1 { font-size: 20px; }
       .navbar ul li a { font-size: 14px; }
-      .post-card h2 { font-size: 16px; }
+      .post-card h2 { font-size: 14px; }
+      .post-card img { width: 80px; height: 120px; }
       .pagination a, .pagination span { padding: 6px 10px; font-size: 12px; }
     }
     /* Lazy Load Images */
@@ -419,26 +483,32 @@
 <body>
   <!-- Header -->
   <div class='header'>
-    <img alt='Logo Novel Inspirasi Asia' class='logo' expr:src='data:blog.logo'/>
+    <img alt='Logo Danmei Indonesia' class='logo' expr:src='data:blog.logo'/>
     <h1><data:blog.title/></h1>
+    <form action='/search' class='search-bar' method='get'>
+      <input name='q' placeholder='Cari novel...' type='text'/>
+      <button type='submit'>Cari</button>
+    </form>
   </div>
   <!-- Navbar -->
   <div class='navbar'>
-    <ul>
-      <li><a expr:href='data:blog.homepageUrl'>Beranda</a></li>
-      <li class='dropdown'>
-        <a href='#'>Genre</a>
-        <div class='dropdown-content'>
-          <a href='/p/romance.html'>Romance</a>
-          <a href='/p/bl.html'>BL</a>
-          <a href='/p/fantasy.html'>Fantasy</a>
-        </div>
-      </li>
-      <li><a href='/p/pencarian.html'>Pencarian</a></li>
-      <li><a href='/p/tentang.html'>Tentang</a></li>
-      <li><a href='/p/kontak.html'>Kontak</a></li>
-    </ul>
-    <button class='dark-mode-toggle' onclick='toggleDarkMode()'>Toggle Dark Mode</button>
+    <div class='nav-container'>
+      <ul>
+        <li><a expr:href='data:blog.homepageUrl'>Beranda</a></li>
+        <li class='dropdown'>
+          <a href='#'>Kategori Danmei</a>
+          <div class='dropdown-content'>
+            <a href='/p/historical.html'>Historical</a>
+            <a href='/p/xianxia.html'>Xianxia</a>
+            <a href='/p/modern.html'>Modern</a>
+          </div>
+        </li>
+        <li><a href='/p/pencarian.html'>Pencarian</a></li>
+        <li><a href='/p/tentang.html'>Tentang</a></li>
+        <li><a href='/p/kontak.html'>Kontak</a></li>
+      </ul>
+      <button class='dark-mode-toggle' onclick='toggleDarkMode()'>Toggle Dark Mode</button>
+    </div>
   </div>
   <!-- Container -->
   <div class='container'>
@@ -446,10 +516,10 @@
       <!-- Genre Filter -->
       <div class='genre-filter'>
         <select onchange='if(this.value) window.location.href=this.value'>
-          <option value=''>Pilih Genre</option>
-          <option value='/search/label/Romance'>Romance</option>
-          <option value='/search/label/BL'>BL</option>
-          <option value='/search/label/Fantasy'>Fantasy</option>
+          <option value=''>Pilih Kategori Danmei</option>
+          <option value='/search/label/Historical'>Historical</option>
+          <option value='/search/label/Xianxia'>Xianxia</option>
+          <option value='/search/label/Modern'>Modern</option>
         </select>
       </div>
       <!-- Blog Posts -->
@@ -458,21 +528,21 @@
           <b:includable id='main'>
             <b:if cond='data:blog.pageType == "index" or data:blog.pageType == "archive"'>
               <!-- Daftar Posting -->
-              <b:loop values='data:posts' var='post'>
-                <div class='post-card'>
-                  <b:if cond='data:post.thumbnail'>
-                    <img expr:alt='data:post.title' expr:data-src='data:post.thumbnail'/>
-                  <b:else/>
-                    <img alt='No Image' data-src='URL_GAMBAR_DEFAULT'/>
-                  </b:if>
-                  <div>
+              <div class='post-grid'>
+                <b:loop values='data:posts' var='post'>
+                  <div class='post-card'>
+                    <b:if cond='data:post.thumbnail'>
+                      <img expr:alt='data:post.title' expr:data-src='data:post.thumbnail'/>
+                    <b:else/>
+                      <img alt='No Image' data-src='URL_GAMBAR_DEFAULT'/>
+                    </b:if>
                     <h2><a expr:href='data:post.url' expr:title='data:post.title'><data:post.title/></a></h2>
-                    <p><b>Genre:</b> <b:loop values='data:post.labels' var='label'><a expr:href='data:label.url'><data:label.name/></a><b:if cond='data:label.isLast != "true"'>, </b:if></b:loop></p>
+                    <p><b>Kategori:</b> <b:loop values='data:post.labels' var='label'><a expr:href='data:label.url'><data:label.name/></a><b:if cond='data:label.isLast != "true"'>, </b:if></b:loop></p>
                     <p><data:post.snippet/></p>
                     <a class='read-more' expr:href='data:post.url'>Baca Selengkapnya</a>
                   </div>
-                </div>
-              </b:loop>
+                </b:loop>
+              </div>
               <!-- Pagination -->
               <div class='pagination'>
                 <b:if cond='data:olderPageUrl'>
@@ -487,7 +557,7 @@
               <!-- Halaman Posting Tunggal -->
               <div class='post-body'>
                 <h2><data:blog.postTitle/></h2>
-                <p><b>Genre:</b> <b:loop values='data:blog.labels' var='label'><a expr:href='data:label.url'><data:label.name/></a><b:if cond='data:label.isLast != "true"'>, </b:if></b:loop></p>
+                <p><b>Kategori:</b> <b:loop values='data:blog.labels' var='label'><a expr:href='data:label.url'><data:label.name/></a><b:if cond='data:label.isLast != "true"'>, </b:if></b:loop></p>
                 <data:blog.postContent/>
                 <div class='post-nav'>
                   <b:if cond='data:blog.prevPost'>
