@@ -52,7 +52,7 @@
   </script>
   <!-- Favicon -->
   <link expr:href='data:blog.favicon' rel='icon' type='image/x-icon'/>
-  <!-- Google Fonts (Fixed: Escaped ampersands) -->
+  <!-- Google Fonts -->
   <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;family=Open+Sans:wght@400;600&amp;display=swap' rel='stylesheet'/>
   <!-- Font Awesome untuk ikon -->
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'/>
@@ -1124,7 +1124,7 @@
       document.addEventListener('DOMContentLoaded', function() {
         const searchForm = document.getElementById('advancedSearchForm');
         const searchResults = document.getElementById('searchResults');
-        fetch('<data:blog.homepageUrl/>/feeds/posts/default?alt=json&max-results=999')
+        fetch('<data:blog.homepageUrl/>/feeds/posts/default?alt=json&amp;max-results=999')
           .then(response => response.json())
           .then(data => {
             const posts = data.feed.entry || [];
